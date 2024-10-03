@@ -19,21 +19,22 @@ public class TitleScene extends StaticScene {
     @Override
     public void setupScene() {
         setBackgroundImage("backgrounds/space.png");
+        setBackgroundAudio("audios/menumusic.mp3");
     }
 
     @Override
     public void setupEntities() {
         var titleText = new TextEntity(
                 new Coordinate2D(getWidth() / 2, getHeight() / 2),
-                "SubSpace"
+                "ASTRO BLASTER"
         );
         titleText.setAnchorPoint(AnchorPoint.CENTER_CENTER);
         titleText.setFill(Color.LIGHTBLUE);
-        titleText.setFont(Font.font("Sans-serif", FontWeight.BOLD, 80));
+        titleText.setFont(Font.font("Monospaced", FontWeight.BOLD, 80));
         addEntity(titleText);
 
         var startButton = new StartButton(
-                new Coordinate2D(getWidth() / 2, (getHeight() / 2) + 50), spaceShooter);
+                new Coordinate2D(getWidth() / 2, (getHeight() / 2) + 75), spaceShooter);
         startButton.setAnchorPoint(AnchorPoint.CENTER_CENTER);
         addEntity(startButton);
     }

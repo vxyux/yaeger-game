@@ -16,10 +16,10 @@ public class StartButton extends TextEntity implements MouseButtonPressedListene
     private SpaceShooter spaceShooter;
 
     public StartButton(Coordinate2D initialLocation, SpaceShooter spaceShooter) {
-        super(initialLocation,"Play game");
+        super(initialLocation,"PLAY GAME");
         this.spaceShooter = spaceShooter;
-        setFill(Color.PURPLE);
-        setFont(Font.font("Roboto", FontWeight.BOLD, 40));
+        setFill(Color.YELLOW);
+        setFont(Font.font("Monospaced", FontWeight.BOLD, 40));
     }
 
     @Override
@@ -29,13 +29,13 @@ public class StartButton extends TextEntity implements MouseButtonPressedListene
 
     @Override
     public void onMouseEntered() {
-        setFill(Color.VIOLET);
+        setFill(Color.LIGHTYELLOW);
         setCursor(Cursor.HAND);
     }
 
     @Override
     public void onMouseExited() {
-        setFill(Color.PURPLE);
+        setFill(Color.YELLOW);
         setCursor(Cursor.DEFAULT);
     }
 }

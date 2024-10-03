@@ -4,4 +4,5 @@ module spaceshooter {
     exports org.spacex;
 
     opens backgrounds;
+    opens audios;
 }
