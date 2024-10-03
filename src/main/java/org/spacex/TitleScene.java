@@ -7,6 +7,7 @@ import com.github.hanyaeger.api.scenes.StaticScene;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import org.spacex.components.StartButton;
 
 public class TitleScene extends StaticScene {
     private SpaceShooter spaceShooter;
@@ -30,5 +31,10 @@ public class TitleScene extends StaticScene {
         titleText.setFill(Color.LIGHTBLUE);
         titleText.setFont(Font.font("Sans-serif", FontWeight.BOLD, 80));
         addEntity(titleText);
+
+        var startButton = new StartButton(
+                new Coordinate2D(getWidth() / 2, (getHeight() / 2) + 50), spaceShooter);
+        startButton.setAnchorPoint(AnchorPoint.CENTER_CENTER);
+        addEntity(startButton);
     }
 }
