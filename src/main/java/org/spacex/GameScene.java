@@ -1,6 +1,8 @@
 package org.spacex;
 
+import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.scenes.DynamicScene;
+import org.spacex.entities.PlayerShip;
 
 public class GameScene extends DynamicScene {
     private SpaceShooter spaceShooter;
@@ -16,6 +18,7 @@ public class GameScene extends DynamicScene {
 
     @Override
     public void setupEntities() {
-
+        PlayerShip player = new PlayerShip(new Coordinate2D(30,30), spaceShooter);
+        addEntity(player);
     }
 }

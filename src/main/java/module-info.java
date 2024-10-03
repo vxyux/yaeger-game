@@ -5,4 +5,5 @@ module spaceshooter {
 
     opens backgrounds;
     opens audios;
+    opens sprites;
 }
