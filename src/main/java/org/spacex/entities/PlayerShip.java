@@ -20,17 +20,33 @@ public class PlayerShip extends DynamicSpriteEntity implements Newtonian, KeyLis
     }
 
     public PlayerShip(Coordinate2D location, SpaceShooter spaceShooter) {
-        super("sprites/playership.png", location, new Size(100, 200));
+        super("sprites/playership.png", location, new Size(80, 80));
 
         this.spaceShooter = spaceShooter;
-        setGravityConstant(0.01);
+        setGravityConstant(0);
         // dit trekt de player naar beneden
         // setFrictionConstant(0.1);
     }
 
     @Override
     public void notifyBoundaryTouching(SceneBorder sceneBorder) {
+        setSpeed(0);
 
+        switch(sceneBorder){
+            case TOP:
+                setAnchorLocationY(1);
+                break;
+            case BOTTOM:
+                setAnchorLocationY(getSceneHeight() - getHeight() - 1);
+                break;
+            case LEFT:
+                setAnchorLocationX(1);
+                break;
+            case RIGHT:
+                setAnchorLocationX(getSceneWidth() - getWidth() - 1);
+            default:
+                break;
+        }
     }
 
     @Override

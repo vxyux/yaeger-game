@@ -16,7 +16,7 @@ public class SpaceShooter extends YaegerGame
 
     @Override
     public void setupGame() {
-        setGameTitle("Space Shooter");
+        setGameTitle("Astro Blaster");
         setSize(new Size(1200, 800));
     }
 
