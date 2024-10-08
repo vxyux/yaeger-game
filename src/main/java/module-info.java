@@ -1,5 +1,6 @@
 module spaceshooter {
     requires hanyaeger;
+    requires com.google.guice;
 
     exports org.spacex;
     
