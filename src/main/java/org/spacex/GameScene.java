@@ -18,6 +18,11 @@ public class GameScene extends DynamicScene {
         setBackgroundImage("backgrounds/space.png");
     }
 
+    public GameScene getGameScene(){
+        return this;
+    }
+
+
     @Override
     public void setupEntities() {
         PlayerShip player = new PlayerShip(new Coordinate2D(30,30), spaceShooter);
@@ -27,4 +32,5 @@ public class GameScene extends DynamicScene {
         playerBeam.setAnchorPoint(AnchorPoint.CENTER_CENTER);
         addEntity(playerBeam);
     }
+
 }

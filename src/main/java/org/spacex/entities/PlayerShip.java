@@ -8,10 +8,11 @@ import com.github.hanyaeger.api.scenes.SceneBorder;
 import com.github.hanyaeger.api.userinput.KeyListener;
 import javafx.scene.input.KeyCode;
 import org.spacex.SpaceShooter;
+import org.spacex.GameScene;
 
 import java.util.Set;
 
-public class PlayerShip extends DynamicSpriteEntity implements KeyListener, SceneBorderTouchingWatcher {
+public class PlayerShip extends DynamicSpriteEntity extends EntitySpawner, implements KeyListener, SceneBorderTouchingWatcher {
     private SpaceShooter spaceShooter;
 
     protected PlayerShip(String resource, Coordinate2D initialLocation) {
@@ -26,6 +27,13 @@ public class PlayerShip extends DynamicSpriteEntity implements KeyListener, Scen
         // dit trekt de player naar beneden
         // setFrictionConstant(0.1);
     }
+
+    private void fireBullet(Coordinate2D location) {
+        Bullet bullet = new Bullet("sprites/laser_beam.png",location);  // Create bullet at the ship's current position
+        GameScene myGameScene = ;
+        addEntity(bullet);  // Add bullet to the scene so it appears and updates
+    }
+
 
     @Override
     public void notifyBoundaryTouching(SceneBorder sceneBorder) {
@@ -60,6 +68,8 @@ public class PlayerShip extends DynamicSpriteEntity implements KeyListener, Scen
             setMotion(3,180d);
         } else if(pressedKeys.contains(KeyCode.DOWN)) {
             setMotion(3, 0d);
+        } else if (pressedKeys.contains(KeyCode.SPACE)) {
+            fireBullet(this.getAnchorLocation());
         }
         else if(pressedKeys.isEmpty()){
             setSpeed(0);
