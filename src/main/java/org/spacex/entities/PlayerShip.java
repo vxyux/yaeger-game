@@ -12,7 +12,7 @@ import org.spacex.SpaceShooter;
 
 import java.util.Set;
 
-public class PlayerShip extends DynamicSpriteEntity implements Newtonian, KeyListener, SceneBorderTouchingWatcher {
+public class PlayerShip extends DynamicSpriteEntity implements KeyListener, SceneBorderTouchingWatcher {
     private SpaceShooter spaceShooter;
 
     protected PlayerShip(String resource, Coordinate2D initialLocation) {
@@ -23,7 +23,7 @@ public class PlayerShip extends DynamicSpriteEntity implements Newtonian, KeyLis
         super("sprites/playership.png", location, new Size(80, 80));
 
         this.spaceShooter = spaceShooter;
-        setGravityConstant(0);
+        //setGravityConstant(0);
         // dit trekt de player naar beneden
         // setFrictionConstant(0.1);
     }
