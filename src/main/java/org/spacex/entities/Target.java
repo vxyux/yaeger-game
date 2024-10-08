@@ -7,9 +7,9 @@ public class Target {
     private int health;
     private int[] size;
 
-    public Target(int myhealth, int[] mysize) {
-        this.health = myhealth;
-        this.size = mysize;
+    public Target(int myHealth, int[] mySize) {
+        this.health = myHealth;
+        this.size = mySize;
     }
 }
 
