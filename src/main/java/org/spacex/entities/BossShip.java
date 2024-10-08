@@ -2,7 +2,7 @@ package org.spacex.entities;
 
 public class BossShip extends Target {
     private String sprite;
-    private Bullet[] shootingType;
+    private Bullet[] shootingType; // Bullet has yet to exist
     private int[][] movingPattern;
 
     public BossShip(int myhealth, int[] mysize, String sprite, Bullet[] shootingType, int[][] movingPattern) {
