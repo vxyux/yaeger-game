@@ -1,5 +1,6 @@
 package org.spacex;
 
+import com.github.hanyaeger.api.AnchorPoint;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.scenes.DynamicScene;
 import org.spacex.entities.Bullet;
@@ -26,6 +27,7 @@ public class GameScene extends DynamicScene {
 
     // zo kan addEntity aangeroepen worden (met Bullet als parameter)!
     public void addBullet(Bullet newBullet) {
+        newBullet.setAnchorPoint(AnchorPoint.CENTER_LEFT);
         addEntity(newBullet);
     }
 }
