@@ -14,30 +14,31 @@ import javafx.scene.input.KeyCode;
 import org.spacex.SpaceShooter;
 import org.spacex.GameScene;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 public class PlayerShip extends DynamicSpriteEntity implements KeyListener, SceneBorderTouchingWatcher {
     private SpaceShooter spaceShooter;
-    private BulletSpawner bulletSpawner;
+    private GameScene gameScene;
+    private long lastBulletFiredTime = 0;  // Keeps track of the last time a bullet was fired
+    private static final int BULLET_COOLDOWN = 250; // 250 milliseconds = 0.25 seconds
 
-    protected PlayerShip(String resource, Coordinate2D initialLocation) {
-        super(resource, initialLocation);
-    }
-
-    public PlayerShip(Coordinate2D location, SpaceShooter spaceShooter, BulletSpawner bulletSpawner) {
+    public PlayerShip(Coordinate2D location, SpaceShooter spaceShooter, GameScene gameScene) {
         super("sprites/playership.png", location, new Size(80, 80));
 
         this.spaceShooter = spaceShooter;
-        this.bulletSpawner = bulletSpawner;
-
-        //setGravityConstant(0);
-        // dit trekt de player naar beneden
-        // setFrictionConstant(0.1);
+        this.gameScene = gameScene;
     }
 
-    private void fireBullet(Coordinate2D location) {
-//        Bullet bullet = new Bullet("sprites/laser_beam.png", location);  // Create bullet at the ship's current position
+    /*
+        Maakt een nieuwe instantie aan van de kogel met de bijbehorende sprite
+        Roept functie aan in gameScene zodat addEntity aangeroepen kan worden
+     */
+    private void fireBullet() {
+        // Maakt een nieuwe kogel gebasseerd op de PlayerShip's anchor locatie
+        Bullet newBullet = new Bullet("sprites/laser_beam.png", getAnchorLocation());
+        gameScene.addBullet(newBullet);  // Add the bullet to the game scene
     }
 
     @Override
@@ -74,7 +75,12 @@ public class PlayerShip extends DynamicSpriteEntity implements KeyListener, Scen
         } else if (pressedKeys.contains(KeyCode.DOWN)) {
             setMotion(3, 0d);
         } else if (pressedKeys.contains(KeyCode.SPACE)) {
-            fireBullet(this.getAnchorLocation());
+            // cooldown functie om spam te voorkomen
+            long currentTime = System.currentTimeMillis();
+            if (currentTime - lastBulletFiredTime >= BULLET_COOLDOWN) {
+                fireBullet();
+                lastBulletFiredTime = currentTime;
+            }
         } else if (pressedKeys.isEmpty()) {
             setSpeed(0);
         }
