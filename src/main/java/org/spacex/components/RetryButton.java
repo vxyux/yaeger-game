@@ -5,7 +5,7 @@ import org.spacex.SpaceShooter;
 
 
 public class RetryButton extends Button  {
-    private SpaceShooter spaceShooter;
+//    private SpaceShooter spaceShooter;
 
     public RetryButton(Coordinate2D initialLocation, SpaceShooter spaceShooter) {
         super(initialLocation, spaceShooter, "KUT GAME", Color.RED);

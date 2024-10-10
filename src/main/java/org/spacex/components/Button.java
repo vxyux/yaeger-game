@@ -13,7 +13,7 @@ import javafx.scene.text.FontWeight;
 import org.spacex.SpaceShooter;
 
 public class Button extends TextEntity implements MouseButtonPressedListener, MouseEnterListener, MouseExitListener {
-    private SpaceShooter spaceShooter;
+    private final SpaceShooter spaceShooter;
 
     public Button(Coordinate2D initialLocation, SpaceShooter spaceShooter, String text, Color color) {
         super(initialLocation, text);
