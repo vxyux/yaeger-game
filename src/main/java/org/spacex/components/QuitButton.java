@@ -8,7 +8,8 @@ import org.spacex.SpaceShooter;
 public class QuitButton extends Button {
     private SpaceShooter spaceShooter;
     public QuitButton(Coordinate2D initialLocation, SpaceShooter spaceShooter) {
-        super(initialLocation, spaceShooter, "KUT GAME", Color.RED);
+        super(initialLocation, spaceShooter, "ゲームを終了する", Color.RED);
+        this.spaceShooter = spaceShooter;
     }
 
     @Override

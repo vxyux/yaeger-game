@@ -7,6 +7,7 @@ import com.github.hanyaeger.api.scenes.StaticScene;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import org.spacex.components.QuitButton;
 import org.spacex.components.StartButton;
 
 public class TitleScene extends StaticScene {
@@ -37,5 +38,11 @@ public class TitleScene extends StaticScene {
                 new Coordinate2D(getWidth() / 2, (getHeight() / 2) + 75), spaceShooter);
         startButton.setAnchorPoint(AnchorPoint.CENTER_CENTER);
         addEntity(startButton);
+
+
+        var quitButton = new QuitButton(
+                new Coordinate2D(getWidth() / 2, (getHeight() / 2) + 110), spaceShooter);
+        quitButton.setAnchorPoint(AnchorPoint.CENTER_CENTER);
+        addEntity(quitButton);
     }
 }
