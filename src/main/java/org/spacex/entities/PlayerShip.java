@@ -18,7 +18,7 @@ public class PlayerShip extends DynamicSpriteEntity implements KeyListener, Scen
     private GameScene gameScene;
 
     private long lastBulletFiredTime = 0;
-    private static final int BULLET_COOLDOWN = 250;
+    private static final int BULLET_COOLDOWN = 600;
 
     public PlayerShip(Coordinate2D location, SpaceShooter spaceShooter, GameScene gameScene) {
         super("sprites/playership.png", location, new Size(70, 70));

@@ -29,5 +29,6 @@ public class GameScene extends DynamicScene {
     public void addBullet(Bullet newBullet) {
         newBullet.setAnchorPoint(AnchorPoint.CENTER_LEFT);
         addEntity(newBullet);
+        setBackgroundAudio("audios/shoot.mp3");
     }
 }
