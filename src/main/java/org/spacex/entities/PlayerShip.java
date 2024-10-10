@@ -5,6 +5,7 @@ import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.entities.SceneBorderTouchingWatcher;
 import com.github.hanyaeger.api.entities.impl.DynamicSpriteEntity;
+import com.github.hanyaeger.api.media.SoundClip;
 import com.github.hanyaeger.api.scenes.SceneBorder;
 import com.github.hanyaeger.api.userinput.KeyListener;
 import javafx.scene.input.KeyCode;
@@ -32,7 +33,8 @@ public class PlayerShip extends DynamicSpriteEntity implements KeyListener, Scen
         setSpeed(0);
         switch (sceneBorder) {
             case TOP:
-                setAnchorLocationY(1);
+                // tp naar beneden (reset)
+                setAnchorLocationY(getSceneHeight() + getHeight());
                 break;
             case BOTTOM:
                 setAnchorLocationY(getSceneHeight() - getHeight());
@@ -43,7 +45,6 @@ public class PlayerShip extends DynamicSpriteEntity implements KeyListener, Scen
             case RIGHT:
                 setAnchorLocationX(getSceneWidth() - getWidth());
             default:
-                setAnchorPoint(AnchorPoint.CENTER_CENTER);
                 break;
         }
     }
@@ -89,6 +90,7 @@ public class PlayerShip extends DynamicSpriteEntity implements KeyListener, Scen
             Bullet newBullet = new Bullet("sprites/laser_beam.png", getAnchorLocation());
             gameScene.addBullet(newBullet);
             lastBulletFiredTime = currentTime;
+            new SoundClip("audios/laser.mp3").play();
         }
     }
 }
