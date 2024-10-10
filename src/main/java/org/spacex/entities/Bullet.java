@@ -8,12 +8,18 @@ import com.github.hanyaeger.api.entities.impl.DynamicSpriteEntity;
 import com.github.hanyaeger.api.scenes.SceneBorder;
 
 public class Bullet extends DynamicSpriteEntity implements SceneBorderTouchingWatcher, Collider {
+    private int direction;
+    private int speed;
+
     public Bullet(String resource, Coordinate2D initialLocation) {
-        super(resource, initialLocation, new Size(80, 80));
-        setMotion(3, -180d);
+        super(resource, initialLocation, new Size(100, 100));
+        setAnchorLocation(initialLocation);
+        // bepaal snelheid en direction
+        setMotion(5, -180d);
     }
 
     @Override
     public void notifyBoundaryTouching(SceneBorder sceneBorder) {
+        remove();
     }
 }
