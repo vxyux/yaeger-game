@@ -35,13 +35,13 @@ public class TitleScene extends StaticScene {
         addEntity(titleText);
 
         var startButton = new StartButton(
-                new Coordinate2D(getWidth() / 2, (getHeight() / 2) + 75), spaceShooter);
+                new Coordinate2D(getWidth() / 2, (getHeight() / 2) + 120), spaceShooter);
         startButton.setAnchorPoint(AnchorPoint.CENTER_CENTER);
         addEntity(startButton);
 
 
         var quitButton = new QuitButton(
-                new Coordinate2D(getWidth() / 2, (getHeight() / 2) + 110), spaceShooter);
+                new Coordinate2D(getWidth() / 2, (getHeight() / 2) + 160), spaceShooter);
         quitButton.setAnchorPoint(AnchorPoint.CENTER_CENTER);
         addEntity(quitButton);
     }
