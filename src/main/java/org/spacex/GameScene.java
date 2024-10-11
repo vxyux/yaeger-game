@@ -7,12 +7,10 @@ import com.github.hanyaeger.api.media.SoundClip;
 import com.github.hanyaeger.api.scenes.DynamicScene;
 import org.spacex.entities.Bullet;
 import org.spacex.entities.EnemyShip;
-import org.spacex.entities.Explosion;
 import org.spacex.entities.PlayerShip;
 
 public class GameScene extends DynamicScene {
     private SpaceShooter spaceShooter;
-    private Explosion explosion;
 
     public GameScene(SpaceShooter spaceShooter) {
         this.spaceShooter = spaceShooter;
@@ -37,9 +35,5 @@ public class GameScene extends DynamicScene {
     public void addBullet(Bullet newBullet) {
         newBullet.setAnchorPoint(AnchorPoint.CENTER_LEFT);
         addEntity(newBullet);
-    }
-
-    public void addExplosion(final Coordinate2D anchorLocation, double speed, double direction) {
-        addEntity(new Explosion(anchorLocation, speed, direction));
     }
 }
