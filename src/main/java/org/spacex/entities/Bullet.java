@@ -27,12 +27,18 @@ public class Bullet extends DynamicSpriteEntity implements SceneBorderTouchingWa
     @Override
     public void notifyBoundaryTouching(SceneBorder sceneBorder) {
         remove();
-        //gameScene.addExplosion(getAnchorLocation(), 6, 90d);
+        setSpeed(0);
+        explode();
     }
 
     @Override
     public void onCollision(List<Collider> list) {
+        // misschien nog later nodig voor user feedback
         //remove();
-        //gameScene.addExplosion(getAnchorLocation(), 6, 90d);
+        //explode();
+    }
+
+    public void explode() {
+        gameScene.createExplosion(getLocationInScene(), getSpeed(), new Size(60, 60));
     }
 }
