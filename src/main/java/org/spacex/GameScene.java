@@ -4,10 +4,7 @@ import com.github.hanyaeger.api.AnchorPoint;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.scenes.DynamicScene;
-import org.spacex.components.BackAndForthMovement;
-import org.spacex.components.CircularMovement;
-import org.spacex.components.ExplosionCreator;
-import org.spacex.components.MovementPattern;
+import org.spacex.components.*;
 import org.spacex.entities.*;
 
 /*
@@ -32,12 +29,17 @@ public class GameScene extends DynamicScene implements ExplosionCreator {
 
     @Override
     public void setupEntities() {
-        //  Setup Movement Pattern for Boss Ship
 
-        //Test Case Left and Right boss movement
-        MovementPattern backAndForthMovement = new BackAndForthMovement(2.5, getWidth());
-        // Test Case Circular boss movement
+        //  Setup Movement Pattern for Boss Ship /////////////////////////////////////////////////////////////////////////
+
+        // Test Case: Left and Right boss movement
+        MovementPattern backAndForthMovement = new BackAndForthMovement(4, 1000);
+        // Test Case: Circular boss movement
         MovementPattern circularMovement = new CircularMovement(getWidth() / 2,50,200,0.01);
+        // Test Case: Random movement
+        MovementPattern randommove = new RandomizedMovement(4, 4, 1000,300, 2000);
+
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // hier wordt de PlayerShip gespawnt
         PlayerShip player = new PlayerShip(new Coordinate2D(getWidth() / 2, getHeight() / 2), spaceShooter, this);
@@ -46,8 +48,15 @@ public class GameScene extends DynamicScene implements ExplosionCreator {
         EnemyShip enemy = new EnemyShip(new Coordinate2D(getWidth() / 2, getHeight() / 4), this);
         addEntity(enemy);
 
-        BossShip boss = new BossShip(new Coordinate2D(getWidth() / 2 - 75, 50), "sprites/dragonboss_ship.png" ,  backAndForthMovement, this);
-        addEntity(boss);
+        // Test subject: Boss, nr: 1;
+//        BossShip boss = new BossShip(new Coordinate2D(getWidth() / 2, 50), "sprites/dragonboss_ship.png" ,  backAndForthMovement, this);
+//        addEntity(boss);
+
+        // Test subject: Boss, nr: 2;
+        BossShip boss2 = new BossShip(new Coordinate2D(getWidth() / 2, 40), "sprites/spacecraft-symmetry.png" ,  randommove, this);
+        addEntity(boss2);
+
+
     }
 
     // zo kan addEntity aangeroepen worden (met Bullet als parameter)!
