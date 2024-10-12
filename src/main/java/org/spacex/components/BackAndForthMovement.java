@@ -4,9 +4,9 @@ import com.github.hanyaeger.api.Coordinate2D;
 
 
 public class BackAndForthMovement implements MovementPattern {
-    private double speed;
+    private final double speed;
     private boolean movingRight = true;
-    private double sceneWidth;
+    private final double sceneWidth;
 
     public BackAndForthMovement(double speed, double sceneWidth) {
         this.speed = speed;

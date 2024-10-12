@@ -5,6 +5,7 @@ import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.scenes.DynamicScene;
 import org.spacex.components.BackAndForthMovement;
+import org.spacex.components.CircularMovement;
 import org.spacex.components.ExplosionCreator;
 import org.spacex.components.MovementPattern;
 import org.spacex.entities.*;
@@ -32,7 +33,11 @@ public class GameScene extends DynamicScene implements ExplosionCreator {
     @Override
     public void setupEntities() {
         //  Setup Movement Pattern for Boss Ship
-        MovementPattern backAndForthMovement = new BackAndForthMovement(2, getWidth());
+
+        //Test Case Left and Right boss movement
+        MovementPattern backAndForthMovement = new BackAndForthMovement(2.5, getWidth());
+        // Test Case Circular boss movement
+        MovementPattern circularMovement = new CircularMovement(getWidth() / 2,50,200,0.01);
 
         // hier wordt de PlayerShip gespawnt
         PlayerShip player = new PlayerShip(new Coordinate2D(getWidth() / 2, getHeight() / 2), spaceShooter, this);

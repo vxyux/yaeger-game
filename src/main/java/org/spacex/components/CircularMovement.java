@@ -2,7 +2,7 @@ package org.spacex.components;
 
 import com.github.hanyaeger.api.Coordinate2D;
 
-public class CircularMovement {
+public class CircularMovement implements MovementPattern {
     private double centerX;
     private double centerY;
     private double radius;
