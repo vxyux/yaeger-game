@@ -12,16 +12,16 @@ import org.spacex.GameScene;
 import java.util.List;
 
 public class Bullet extends DynamicSpriteEntity implements SceneBorderTouchingWatcher, Collider, Collided {
-    private int direction;
-    private int speed;
+    private double direction;
+    private double speed;
     private GameScene gameScene;
 
-    public Bullet(String resource, Coordinate2D initialLocation, GameScene gameScene) {
+    public Bullet(String resource, Coordinate2D initialLocation, GameScene gameScene,double speed, double direction) {
         super(resource, initialLocation, new Size(100, 100));
         this.gameScene = gameScene;
         setAnchorLocation(initialLocation);
         // bepaal snelheid en direction
-        setMotion(5, -180d);
+        setMotion(speed, direction);
     }
 
     @Override
