@@ -19,6 +19,12 @@ public class CircularMovement implements MovementPattern {
     public Coordinate2D calculateNextPosition(Coordinate2D currentPosition) {
 
         angle += speed;
+        /*
+        Math.cos(angle): Geeft de x-component van een eenheidscirkel voor de gegeven hoek.
+        Dit varieert tussen -1 en 1. Wanneer de hoek 0 is, is de cosinus 1 (naar rechts wijzend langs de x-as).
+        Bij 90 graden (π/2 radialen) is de cosinus 0 (geen x-verplaatsing).
+        Bij 180 graden (π radialen) is de cosinus -1 (naar links wijzend langs de x-as).
+        */
         double x= centerX + radius * Math.cos(angle);
         double y = centerY + radius * Math.sin(angle);
 

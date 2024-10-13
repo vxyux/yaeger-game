@@ -12,24 +12,34 @@ public class BackAndForthMovement implements MovementPattern {
         this.speed = speed;
         this.sceneWidth = sceneWidth;
     }
+    /*
+    Override van super (mocht het nodig zijn).
 
+    Calculeert de volgende positie op basis van de movingRight.
+    Als movingright true is == beweegt Boss naar rechts.
+    if (position >= sceneWidth) == raakt de 'rand' aan, en gaat bewegen naar links als gevolg.
+    vice versa.
+     */
     @Override
     public Coordinate2D calculateNextPosition(Coordinate2D currentPosition) {
-        double x = currentPosition.getX();
+        double position = currentPosition.getX();
 
+        // Als Boss beweegt naar rechts
         if (movingRight) {
-            x += speed;
-            if (x >= sceneWidth) {
+            position += speed;
+            // Als Boss in de buurt komt van de rechter schermrand
+            if (position >= sceneWidth) {
                 movingRight = false;
             }
 
         } else {
-            x -= speed;
-            if (x <= 0) {
+            position -= speed;
+            // Als Boss in de buurt komt van de linker schermrand
+            if (position <= 0) {
                 movingRight = true;
             }
         }
-        return new Coordinate2D(x, currentPosition.getY());
+        return new Coordinate2D(position, currentPosition.getY());
     }
 
 

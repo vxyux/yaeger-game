@@ -21,11 +21,11 @@ public class BossShip extends Target implements UpdateExposer {
     // is wel handig om de scene te hebben  ;)
     private GameScene gameScene;
 
-    public BossShip(Coordinate2D location, String sprite, MovementPattern movemementPattern, GameScene myScene) {
+    public BossShip(Coordinate2D location, String sprite, MovementPattern movementPattern, GameScene myScene) {
         super(sprite, location, new Size(200, 200));
         this.sprite = sprite;
 //        this.shootingType = shootingType;
-        this.pattern = movemementPattern;
+        this.pattern = movementPattern;
         this.gameScene = myScene;
     }
 
@@ -35,8 +35,9 @@ public class BossShip extends Target implements UpdateExposer {
         // Print statement om te controleren of update wordt aangeroepen
         System.out.println("BossShip is being updated.");
 
-        // Beweeg de BossShip volgens het bewegingspatroon
+        // Berekent de volgende plek waar de Boss moet komen.
         Coordinate2D nextPosition = pattern.calculateNextPosition(getAnchorLocation());
+        // Beweeg de BossShip volgens het bewegingspatroon
         setAnchorLocation(nextPosition);
 
         // Zorg dat de Boss elke seconde een kogel afvuurt
