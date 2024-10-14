@@ -90,6 +90,7 @@ public class PlayerShip extends DynamicSpriteEntity implements KeyListener, Scen
         if (currentTime - lastBulletFiredTime >= BULLET_COOLDOWN) {
             // Maakt een nieuwe kogel gebasseerd op de PlayerShip's locatie
             Bullet newBullet = new Bullet("sprites/laser_beam.png", getAnchorLocation(), gameScene, 5, -180d);
+            newBullet.setHue(0.90);
             gameScene.addBullet(newBullet);
             lastBulletFiredTime = currentTime;
             new SoundClip("audios/laser.mp3").play();

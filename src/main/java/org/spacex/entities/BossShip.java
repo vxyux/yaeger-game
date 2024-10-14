@@ -34,7 +34,7 @@ public class BossShip extends Target implements UpdateExposer {
     @Override
     public void explicitUpdate(long l) {
         // Print statement om te controleren of update wordt aangeroepen
-        System.out.println("BossShip is being updated.");
+//        System.out.println("BossShip is being updated.");
 
         // Berekent de volgende plek waar de Boss moet komen.
         Coordinate2D nextPosition = pattern.calculateNextPosition(getAnchorLocation());
