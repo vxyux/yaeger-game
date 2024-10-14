@@ -19,7 +19,7 @@ public class Bullet extends DynamicSpriteEntity implements SceneBorderTouchingWa
     public Bullet(String resource, Coordinate2D initialLocation, GameScene gameScene,double speed, double direction) {
         super(resource, initialLocation, new Size(100, 100));
         this.gameScene = gameScene;
-        setAnchorLocation(initialLocation);
+//        setAnchorLocation(initialLocation);
         // bepaal snelheid en direction
         setMotion(speed, direction);
     }

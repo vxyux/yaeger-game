@@ -20,7 +20,7 @@ public class TitleScene extends StaticScene {
     @Override
     public void setupScene() {
         setBackgroundImage("backgrounds/space.png");
-        setBackgroundAudio("audios/menumusic.mp3");
+        setBackgroundAudio("audios/menu.mp3");
     }
 
     @Override

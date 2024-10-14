@@ -61,14 +61,16 @@ public class PlayerShip extends DynamicSpriteEntity implements KeyListener, Scen
         if (leftPressed) {
             setCurrentFrameIndex(0);
             setMotion(3, 270d);
-        } else if (rightPressed) {
+        } if (rightPressed) {
             setCurrentFrameIndex(1);
             setMotion(3, 90d);
         } else if (upPressed) {
             setMotion(3, 180d);
         } else if (downPressed) {
             setMotion(3, 0d);
-        } else if (spacePressed) {
+        }
+
+        if (spacePressed) {
             fireBullet();
         }
 

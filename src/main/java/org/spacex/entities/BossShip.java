@@ -1,4 +1,5 @@
 package org.spacex.entities;
+import com.github.hanyaeger.api.AnchorPoint;
 import com.github.hanyaeger.api.UpdateExposer;
 import com.github.hanyaeger.api.entities.impl.DynamicSpriteEntity;
 import com.github.hanyaeger.api.Coordinate2D;
@@ -16,7 +17,7 @@ public class BossShip extends Target implements UpdateExposer {
 //    private Bullet[] shootingType; // Bullet has yet to exist
 
     private long lastBulletFiredTime = 0;
-    private static final int BULLET_COOLDOWN = 300;
+    private static final int BULLET_COOLDOWN = 500;
 
     // is wel handig om de scene te hebben  ;)
     private GameScene gameScene;
@@ -50,12 +51,13 @@ public class BossShip extends Target implements UpdateExposer {
     private void fireBullet(){
         // logged de de tijd wanneer de kogel is gevuurd.
         long currentTime = System.currentTimeMillis();
-
         // Maakt een nieuwe kogel gebasseerd op de BossShip's locatie
-        Bullet newBullet = new Bullet("sprites/laser_beam.png", getAnchorLocation(), gameScene, 5,0);
+        Bullet newBullet = new Bullet("sprites/laser_beam.png", getAnchorLocation(), gameScene, 4,0);
         gameScene.addBullet(newBullet);
         lastBulletFiredTime = currentTime;
-        new SoundClip("audios/laser.mp3").play();
+        SoundClip soundClip = new SoundClip("audios/laser.mp3");
+        soundClip.setVolume(0.20);
+        soundClip.play();
     }
 
 

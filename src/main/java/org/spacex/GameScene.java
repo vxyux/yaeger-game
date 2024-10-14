@@ -25,6 +25,8 @@ public class GameScene extends DynamicScene implements ExplosionCreator {
     @Override
     public void setupScene() {
         setBackgroundImage("backgrounds/space.png");
+        setBackgroundAudio("audios/boss.mp3");
+        setBackgroundAudioVolume(200);
     }
 
     @Override
@@ -37,7 +39,11 @@ public class GameScene extends DynamicScene implements ExplosionCreator {
         // Test Case: Circular boss movement
         MovementPattern circularMovement = new CircularMovement(getWidth() / 2,50,200,0.01);
         // Test Case: Random movement
-        MovementPattern randommove = new RandomizedMovement(4, 4, 1000,300, 2000);
+
+        /*
+            Maak een nieuwe randomMovement pattern waarbij je de snelheid kan definieren.
+         */
+        MovementPattern randommove = new RandomizedMovement(3, 3, 1000,300, 1000);
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -49,12 +55,12 @@ public class GameScene extends DynamicScene implements ExplosionCreator {
         addEntity(enemy);
 
         // Test subject: Boss, nr: 1;
-//        BossShip boss = new BossShip(new Coordinate2D(getWidth() / 2, 50), "sprites/dragonboss_ship.png" ,  backAndForthMovement, this);
-//        addEntity(boss);
+        BossShip boss = new BossShip(new Coordinate2D(getWidth() / 2, 50), "sprites/dragonboss_ship.png" ,  backAndForthMovement, this);
+        addEntity(boss);
 
         // Test subject: Boss, nr: 2;
-        BossShip boss2 = new BossShip(new Coordinate2D(getWidth() / 2, 40), "sprites/spacecraft-symmetry.png" ,  randommove, this);
-        addEntity(boss2);
+//        BossShip boss2 = new BossShip(new Coordinate2D(getWidth() / 2, 50), "sprites/spacecraft-symmetry.png" ,  randommove, this);
+//        addEntity(boss2);
 
 
     }
@@ -73,13 +79,9 @@ public class GameScene extends DynamicScene implements ExplosionCreator {
         addEntity(new Explosion(anchorLocation, speed, explosionSize));
     }
 
-
     // dit is een test functie
     public void update() {
         System.out.println("Scene is updating");
-
         // Andere logica hier
     }
-
-
 }
