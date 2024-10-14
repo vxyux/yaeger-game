@@ -22,7 +22,7 @@ public class PlayerShip extends DynamicSpriteEntity implements KeyListener, Scen
     private static final int BULLET_COOLDOWN = 600;
 
     public PlayerShip(Coordinate2D location, SpaceShooter spaceShooter, GameScene gameScene) {
-        super("sprites/playership.png", location, new Size(70, 70));
+        super("gifs/player.gif", location, new Size(70, 70));
 
         this.spaceShooter = spaceShooter;
         this.gameScene = gameScene;
