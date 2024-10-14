@@ -55,7 +55,7 @@ public class GameScene extends DynamicScene implements ExplosionCreator {
         addEntity(enemy);
 
         // Test subject: Boss, nr: 1;
-        BossShip boss = new BossShip(new Coordinate2D(getWidth() / 2, 50), "sprites/dragonboss_ship.png" ,  circularMovement, this);
+        BossShip boss = new BossShip(new Coordinate2D(getWidth() / 2, 50), "sprites/dragonboss_ship.png" ,  backAndForthMovement, this);
         addEntity(boss);
 
         // Test subject: Boss, nr: 2;
