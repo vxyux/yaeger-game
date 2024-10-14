@@ -14,7 +14,9 @@ public class Explosion extends DynamicSpriteEntity implements TimerContainer {
     public Explosion(Coordinate2D initialLocation, double speed, Size size) {
         super("sprites/explosion.png", initialLocation, size, 1, 17);
         setMotion(speed, 90d);
-        new SoundClip("audios/explosion.mp3").play();
+        SoundClip soundClip = new SoundClip("audios/explosion.mp3");
+        soundClip.setVolume(0.20);
+        soundClip.play();
     }
     public void updateFrame() {
         if (getCurrentFrameIndex() < getFrames() - 1) {

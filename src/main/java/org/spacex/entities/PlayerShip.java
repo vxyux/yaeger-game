@@ -61,14 +61,16 @@ public class PlayerShip extends DynamicSpriteEntity implements KeyListener, Scen
         if (leftPressed) {
             setCurrentFrameIndex(0);
             setMotion(3, 270d);
-        } else if (rightPressed) {
+        } if (rightPressed) {
             setCurrentFrameIndex(1);
             setMotion(3, 90d);
         } else if (upPressed) {
             setMotion(3, 180d);
         } else if (downPressed) {
             setMotion(3, 0d);
-        } else if (spacePressed) {
+        }
+
+        if (spacePressed) {
             fireBullet();
         }
 
@@ -87,7 +89,8 @@ public class PlayerShip extends DynamicSpriteEntity implements KeyListener, Scen
         // cooldown voor het vuren van een Bullet
         if (currentTime - lastBulletFiredTime >= BULLET_COOLDOWN) {
             // Maakt een nieuwe kogel gebasseerd op de PlayerShip's locatie
-            Bullet newBullet = new Bullet("sprites/laser_beam.png", getAnchorLocation(), gameScene);
+            Bullet newBullet = new Bullet("sprites/laser_beam.png", getAnchorLocation(), gameScene, 5, -180d);
+            newBullet.setHue(0.90);
             gameScene.addBullet(newBullet);
             lastBulletFiredTime = currentTime;
             new SoundClip("audios/laser.mp3").play();

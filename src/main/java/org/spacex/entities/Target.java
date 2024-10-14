@@ -33,5 +33,9 @@ public class Target extends DynamicSpriteEntity implements KeyListener, SceneBor
     public void explode() {
 
     }
+
+    public void onUpdate(){
+
+    }
 }
 
