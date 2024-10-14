@@ -86,10 +86,13 @@ public class PlayerShip extends DynamicSpriteEntity implements KeyListener, Scen
     */
     private void fireBullet() {
         long currentTime = System.currentTimeMillis();
+        double centerX = this.getAnchorLocation().getX() + this.getWidth() / 2;
+        double centerY = this.getAnchorLocation().getY() + this.getHeight() / 2;
+        Coordinate2D bulletStartPosition = new Coordinate2D(centerX - 28, centerY - 30);
         // cooldown voor het vuren van een Bullet
         if (currentTime - lastBulletFiredTime >= BULLET_COOLDOWN) {
             // Maakt een nieuwe kogel gebasseerd op de PlayerShip's locatie
-            Bullet newBullet = new Bullet("sprites/laser_beam.png", getAnchorLocation(), gameScene, 5, -180d);
+            Bullet newBullet = new Bullet("sprites/laser_beam.png", bulletStartPosition, gameScene, 5, -180d);
             newBullet.setHue(0.90);
             gameScene.addBullet(newBullet);
             lastBulletFiredTime = currentTime;
