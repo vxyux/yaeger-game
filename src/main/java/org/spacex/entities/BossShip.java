@@ -51,8 +51,8 @@ public class BossShip extends Target implements UpdateExposer {
     private void fireBullet(){
         // logged de de tijd wanneer de kogel is gevuurd.
         long currentTime = System.currentTimeMillis();
-        double centerX = this.getAnchorLocation().getX() + this.getWidth() / 2;
-        double centerY = this.getAnchorLocation().getY() + 40 + this.getHeight() / 2;
+        double centerX = this.getAnchorLocation().getX() + this.getWidth() / 3;
+        double centerY = this.getAnchorLocation().getY() + 50 + this.getHeight() / 2;
         Coordinate2D bulletStartPosition = new Coordinate2D(centerX, centerY);
         // Maakt een nieuwe kogel gebasseerd op de BossShip's locatie
         Bullet newBullet = new Bullet("sprites/laser_beam.png", bulletStartPosition, gameScene, 4,0);
