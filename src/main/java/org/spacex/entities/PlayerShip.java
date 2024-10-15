@@ -1,6 +1,5 @@
 package org.spacex.entities;
 
-import com.github.hanyaeger.api.AnchorPoint;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.entities.Collided;
@@ -18,18 +17,17 @@ import java.util.List;
 import java.util.Set;
 
 public class PlayerShip extends DynamicSpriteEntity implements KeyListener, SceneBorderTouchingWatcher, Collided {
-    private GameScene gameScene;
+    private final GameScene gameScene;
     private int healthPoints = 5;
-    private HealthBar healthBar = new HealthBar(getAnchorLocation(), healthPoints);
+    private final HealthBar healthBar = new HealthBar(new Coordinate2D(getSceneWidth() / 2, getSceneHeight() / 2), healthPoints);
 
     private long lastBulletFiredTime = 0;
     private static final int BULLET_COOLDOWN = 600;
     private long lastCollisionTime = 0;
-    private final long collisionCooldown = 1000;
+    private boolean hit = false;
 
     public PlayerShip(Coordinate2D location, GameScene gameScene) {
         super("gifs/player.gif", location, new Size(70, 70));
-
         this.gameScene = gameScene;
         gameScene.addHealthBar(healthBar);
     }
@@ -37,7 +35,6 @@ public class PlayerShip extends DynamicSpriteEntity implements KeyListener, Scen
     @Override
     public void notifyBoundaryTouching(SceneBorder sceneBorder) {
         setSpeed(0);
-        healthBar.move(0, 0);
         switch (sceneBorder) {
             case TOP:
                 // tp naar beneden (reset)
@@ -68,17 +65,13 @@ public class PlayerShip extends DynamicSpriteEntity implements KeyListener, Scen
         if (leftPressed) {
             setCurrentFrameIndex(0);
             setMotion(3, 270d);
-            healthBar.move(3, 270);
         } if (rightPressed) {
             setCurrentFrameIndex(1);
             setMotion(3, 90d);
-            healthBar.move(3, 90);
         } else if (upPressed) {
             setMotion(3, 180d);
-            healthBar.move(3, 180);
         } else if (downPressed) {
             setMotion(3, 0d);
-            healthBar.move(3, 0);
         }
 
         if (spacePressed && healthPoints != 0) {
@@ -88,7 +81,6 @@ public class PlayerShip extends DynamicSpriteEntity implements KeyListener, Scen
         // kijkt of geen van de pijlen zijn ingedrukt
         if (!leftPressed && !rightPressed && !upPressed && !downPressed) {
             setSpeed(0);
-            healthBar.move(0, 0);
         }
     }
 
@@ -98,18 +90,21 @@ public class PlayerShip extends DynamicSpriteEntity implements KeyListener, Scen
 
         Maakt gebruik van een currentTime instantie variabele net als bij
         de cooldown van collision cooldown bij onCollision. Anders blijft
-        currentTime maar optellen in verschillende functie aanroepingen.
+        currentTime, maar optellen in verschillende functie aanroepingen.
 
         Dit maakt de cooldown mogelijk.
     */
     private void fireBullet() {
         long currentTime = System.currentTimeMillis();
+
         double centerX = this.getAnchorLocation().getX() + this.getWidth() / 2;
-        double centerY = this.getAnchorLocation().getY() + this.getHeight() / 2;
+        // - 90y omdat anders de bullet de PlayerShip raakt
+        double centerY = this.getAnchorLocation().getY() + this.getHeight() - 90;
         Coordinate2D bulletStartPosition = new Coordinate2D(centerX - 28, centerY - 30);
+
         // cooldown voor het vuren van een Bullet
         if (currentTime - lastBulletFiredTime >= BULLET_COOLDOWN) {
-            // Maakt een nieuwe kogel gebasseerd op de PlayerShip's locatie
+            // Maakt een nieuwe kogel gebaseerd op de PlayerShip's locatie
             Bullet newBullet = new Bullet("sprites/laser_beam.png", bulletStartPosition, gameScene, 5, -180d);
             newBullet.setHue(0.90);
             gameScene.addBullet(newBullet);
@@ -118,22 +113,26 @@ public class PlayerShip extends DynamicSpriteEntity implements KeyListener, Scen
         }
     }
     /*
-        Zorgt ervoor dat wanneer de PlayerShip met een Bullet botst maar
-        als 1x wordt geregistreerd. Anders kan 1 Bullet alle levens weghalen
+        Zorgt ervoor dat wanneer de PlayerShip met een Bullet botst, maar
+        als een keer wordt geregistreerd. Anders kan 1 Bullet alle levens weghalen
         van de player. Vandaar de cooldown net zoals in fireBullet().
     */
     @Override
     public void onCollision(List<Collider> colliders) {
+        long collisionCooldown = 1000;
         long currentTime = System.currentTimeMillis();
         if (currentTime - lastCollisionTime >= collisionCooldown) {
             healthPoints--;
             healthBar.setCurrentHealth(healthPoints);
             lastCollisionTime = currentTime;
 
-            // wanneer de player geen levens meer heeft doe dit:
+            // wanneer de player geen levens meer heeft
             if(healthPoints == 0) {
                 explode();
                 remove();
+            }
+            else {
+                hit = true;
             }
         }
     }

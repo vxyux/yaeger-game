@@ -67,7 +67,6 @@ public class GameScene extends DynamicScene implements ExplosionCreator {
     }
 
     public void addHealthBar(HealthBar healthBar) {
-        healthBar.setAnchorPoint(AnchorPoint.CENTER_CENTER);
         addEntity(healthBar);
     }
 
