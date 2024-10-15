@@ -18,13 +18,12 @@ import java.util.Set;
 
 public class PlayerShip extends DynamicSpriteEntity implements KeyListener, SceneBorderTouchingWatcher, Collided {
     private final GameScene gameScene;
-    private int healthPoints = 5;
+    
+    private int healthPoints = 10;
     private final HealthBar healthBar = new HealthBar(new Coordinate2D(getSceneWidth() / 2, getSceneHeight() / 2), healthPoints);
 
     private long lastBulletFiredTime = 0;
-    private static final int BULLET_COOLDOWN = 600;
     private long lastCollisionTime = 0;
-    private boolean hit = false;
 
     public PlayerShip(Coordinate2D location, GameScene gameScene) {
         super("gifs/player.gif", location, new Size(70, 70));
@@ -103,6 +102,7 @@ public class PlayerShip extends DynamicSpriteEntity implements KeyListener, Scen
         Coordinate2D bulletStartPosition = new Coordinate2D(centerX - 28, centerY - 30);
 
         // cooldown voor het vuren van een Bullet
+        int BULLET_COOLDOWN = 600;
         if (currentTime - lastBulletFiredTime >= BULLET_COOLDOWN) {
             // Maakt een nieuwe kogel gebaseerd op de PlayerShip's locatie
             Bullet newBullet = new Bullet("sprites/laser_beam.png", bulletStartPosition, gameScene, 5, -180d);
@@ -119,9 +119,9 @@ public class PlayerShip extends DynamicSpriteEntity implements KeyListener, Scen
     */
     @Override
     public void onCollision(List<Collider> colliders) {
-        long collisionCooldown = 1000;
         long currentTime = System.currentTimeMillis();
-        if (currentTime - lastCollisionTime >= collisionCooldown) {
+        long COLLISION_COOLDOWN = 500;
+        if (currentTime - lastCollisionTime >= COLLISION_COOLDOWN) {
             healthPoints--;
             healthBar.setCurrentHealth(healthPoints);
             lastCollisionTime = currentTime;
@@ -132,7 +132,7 @@ public class PlayerShip extends DynamicSpriteEntity implements KeyListener, Scen
                 remove();
             }
             else {
-                hit = true;
+                // logica voor flickering of korte invincibility
             }
         }
     }
