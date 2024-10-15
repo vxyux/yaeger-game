@@ -74,6 +74,10 @@ public class BossShip extends Target implements UpdateExposer, Collider, Collide
         explode();
     }
 
+    public void explode() {
+        gameScene.createExplosion(getLocationInScene(), getSpeed(), new Size(150, 150));
+    }
+
 
 
 }

@@ -137,7 +137,7 @@ public class GameScene extends DynamicScene implements ExplosionCreator, UpdateE
                     System.out.println("Im trying to spawn the boss :(");
                     spawnBoss();  // Every 5 waves, spawn a boss
                 } else {
-                    System.out.println("i came here");
+                    System.out.println("i'm spawning normal enemies");
                     currentWave++;  // Move to the next wave
                     spawnEnemyWave(currentWave);  // Spawn regular enemies
                 }
@@ -183,7 +183,6 @@ public class GameScene extends DynamicScene implements ExplosionCreator, UpdateE
             spawnedPositions.add(position);
 
             if (activeEnemyCount < MAX_ENEMIES_ON_SCREEN) {
-                System.out.println(currentWave);
                 spawnEnemy(position);
             } else {
                 // If there is no space, add to the queue
@@ -193,12 +192,10 @@ public class GameScene extends DynamicScene implements ExplosionCreator, UpdateE
     }
 
     private void spawnBoss() {
-//        bossActive = true;
-
+        bossActive = true;
         Coordinate2D bossPosition = new Coordinate2D(getWidth() / 2 - 50, 100);  // Center the boss
         BossShip boss = new BossShip(bossPosition, "sprites/dragonboss_ship.png", backAndForthMovement, this);
-
-        addBoss(boss);
+        addEntity(boss);
         System.out.println("Boss spawned successfully!");
     }
 
