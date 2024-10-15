@@ -69,9 +69,14 @@ public class BossShip extends Target implements UpdateExposer, Collider, Collide
 
     @Override
     public void onCollision(List<Collider> list) {
-        gameScene.onBossKilled();
-        remove();
-        explode();
+        for (Collider collider : list) {
+            if (collider instanceof Bullet) {
+                gameScene.onBossKilled();
+                ((Bullet) collider).remove();
+                remove();
+                explode();
+            }
+        }
     }
 
     public void explode() {

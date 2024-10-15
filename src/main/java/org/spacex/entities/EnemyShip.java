@@ -19,9 +19,15 @@ public class EnemyShip extends Target implements Collider, Collided {
 
     @Override
     public void onCollision(List<Collider> list) {
-        gameScene.onEnemyKilled();
-        remove();
-        explode();
+
+       for (Collider collider : list) {
+           if (collider instanceof Bullet) {
+               gameScene.onEnemyKilled();
+               ((Bullet) collider).remove();
+               remove();
+               explode();
+           }
+       }
     }
 
     public void explode() {
