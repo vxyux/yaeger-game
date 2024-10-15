@@ -4,6 +4,7 @@ import com.github.hanyaeger.api.AnchorPoint;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.scenes.DynamicScene;
+import com.github.hanyaeger.api.UpdateExposer;
 import org.spacex.components.*;
 import org.spacex.entities.*;
 
@@ -11,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import java.util.Queue;
+import java.util.LinkedList;
 
 /*
     GameScene implementeert van ExplosionCreator, een interface. Dat verplicht
@@ -19,12 +22,17 @@ import java.util.Random;
     CreateExplosion zorgt ervoor dat de explosie wordt aangemaakt/toegevoegt aan
     de GameScene.
 */
-public class GameScene extends DynamicScene implements ExplosionCreator {
+public class GameScene extends DynamicScene implements ExplosionCreator, UpdateExposer {
     private SpaceShooter spaceShooter;
     private int enemiesKilled = 0;
     private int currentWave = 1;
     private boolean bossActive = false;
     private Random random = new Random();
+    private Queue<Coordinate2D> enemySpawnQueue = new LinkedList<>(); // Queue for deferred enemy spawning
+    private final int MAX_ENEMIES_ON_SCREEN = 5;
+    private int activeEnemyCount = 0;  // Track active enemies
+    private final MovementPattern backAndForthMovement = new BackAndForthMovement(4, 1000);
+    private Coordinate2D bossPosition = new Coordinate2D(500 - 50, 100);  // Center the boss
 
 
     public GameScene(SpaceShooter spaceShooter) {
@@ -88,27 +96,48 @@ public class GameScene extends DynamicScene implements ExplosionCreator {
         addEntity(new Explosion(anchorLocation, speed, explosionSize));
     }
 
-    // dit is een test functie
-    public void update() {
-        System.out.println("Scene is updating");
-        // Andere logica hier
-    }
-
     private void spawnInitialWave() {
         spawnEnemyWave(currentWave);  // Spawn based on the wave number
     }
 
+    private void spawnEnemy(Coordinate2D position) {
+        Target enemy = new EnemyShip(position, this);
+        addEnemy(enemy);
+        activeEnemyCount++;  // Increment the active enemy counter
+    }
+
+    /**
+     * Periodically check and attempt to spawn deferred enemies.
+     */
+    public void checkSpawnQueue() {
+        while (!enemySpawnQueue.isEmpty() && activeEnemyCount < MAX_ENEMIES_ON_SCREEN) {
+            Coordinate2D position = enemySpawnQueue.poll();
+            spawnEnemy(position);  // Spawn enemy from the queue
+        }
+    }
+
+    @Override
+    public void explicitUpdate(long timestamp) {
+        if (!bossActive) {
+            checkSpawnQueue();  // Only spawn enemies if boss is not active
+        }  // Periodically check the queue to spawn more enemies
+    }
+
     public void onEnemyKilled() {
         enemiesKilled++;
+        activeEnemyCount--;  // Decrement active enemy counter when one is killed
+        checkSpawnQueue();   // Try to spawn from the queue after killing an enemy
 
         if (!bossActive) {
             // If all enemies in the wave are killed, start the next wave or boss
-            if (enemiesKilled >= currentWave * 5) {
+            if (enemiesKilled >= currentWave * 2) {
                 enemiesKilled = 0;  // Reset for the next wave
 
                 if (currentWave % 5 == 0) {
+                    System.out.println("Im trying to spawn the boss :(");
                     spawnBoss();  // Every 5 waves, spawn a boss
                 } else {
+                    System.out.println("i came here");
                     currentWave++;  // Move to the next wave
                     spawnEnemyWave(currentWave);  // Spawn regular enemies
                 }
@@ -124,9 +153,9 @@ public class GameScene extends DynamicScene implements ExplosionCreator {
     }
 
     private void spawnEnemyWave(int waveNumber) {
-        int enemyCount = waveNumber * 5;  // Scale the number of enemies by wave number
+        int enemyCount = waveNumber * 2;  // Scale the number of enemies by wave number
         double minX = 50;
-        double maxX = 1000 - 100;
+        double maxX = getWidth() - 100;
         double minY = 50;
         double maxY = 200;
         double minDistance = 150;  // Minimum distance between enemies
@@ -152,17 +181,25 @@ public class GameScene extends DynamicScene implements ExplosionCreator {
             }
 
             spawnedPositions.add(position);
-            Target enemy = new EnemyShip(position, this);
-            addEnemy(enemy);
+
+            if (activeEnemyCount < MAX_ENEMIES_ON_SCREEN) {
+                System.out.println(currentWave);
+                spawnEnemy(position);
+            } else {
+                // If there is no space, add to the queue
+                enemySpawnQueue.add(position);
+            }
         }
     }
 
     private void spawnBoss() {
-        MovementPattern backAndForthMovement = new BackAndForthMovement(4, 1000);
-        bossActive = true;
-        Coordinate2D bossPosition = new Coordinate2D(500 - 50, 100);  // Center the boss
-        BossShip boss = new BossShip(bossPosition, "sprites/dragonboss_ship.png" ,  backAndForthMovement, this);
+//        bossActive = true;
+
+        Coordinate2D bossPosition = new Coordinate2D(getWidth() / 2 - 50, 100);  // Center the boss
+        BossShip boss = new BossShip(bossPosition, "sprites/dragonboss_ship.png", backAndForthMovement, this);
+
         addBoss(boss);
+        System.out.println("Boss spawned successfully!");
     }
 
     public void addEnemy(Target enemy) {
