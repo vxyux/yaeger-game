@@ -53,13 +53,31 @@ public class GameScene extends DynamicScene implements ExplosionCreator, UpdateE
         // Hier wordt het PlayerShip gespawnd
         PlayerShip player = new PlayerShip(new Coordinate2D(getWidth() / 2, getHeight() / 2), spaceShooter, this);
         addEntity(player);
+
+//        EnemyShip enemy = new EnemyShip(new Coordinate2D(getWidth() / 2, getHeight() / 4), this);
+//        addEntity(enemy);
+
+        // Test subject: Boss, nr: 1;
+//        BossShip boss = new BossShip(new Coordinate2D(getWidth() / 2, 50), "sprites/dragonboss_ship.png" ,  backAndForthMovement, this);
+//        addEntity(boss);
+
+        // Test subject: Boss, nr: 2;
+//        BossShip boss2 = new BossShip(new Coordinate2D(getWidth() / 2, 50), "sprites/spacecraft-symmetry.png" ,  randommove, this);
+//        addEntity(boss2);
+
+
     }
 
+    // zo kan addEntity aangeroepen worden (met Bullet als parameter)!
     public void addBullet(Bullet newBullet) {
         newBullet.setAnchorPoint(AnchorPoint.CENTER_LEFT);
         addEntity(newBullet);
     }
 
+/*
+    Voegt een nieuwe explosie sprite toe, afhankelijk van de locatie
+    Wordt alleen aangeroepen in andere klassen
+*/
     public void createExplosion(Coordinate2D anchorLocation, double speed, Size explosionSize) {
         addEntity(new Explosion(anchorLocation, speed, explosionSize));
     }
@@ -85,7 +103,7 @@ public class GameScene extends DynamicScene implements ExplosionCreator, UpdateE
     public void explicitUpdate(long timestamp) {
         if (!bossActive) {
             checkSpawnQueue();  // Only spawn enemies if boss is not active
-        }
+        }  // Periodically check the queue to spawn more enemies
     }
 
     public void onEnemyKilled() {
