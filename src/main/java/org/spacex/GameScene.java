@@ -24,7 +24,7 @@ import java.util.LinkedList;
 */
 public class GameScene extends DynamicScene implements ExplosionCreator, UpdateExposer {
     private SpaceShooter spaceShooter;
-    private int enemiesKilled = 0;
+    private static int enemiesKilled = 0;
     private int currentWave = 1;
     private boolean bossActive = false;
     private Random random = new Random();
@@ -124,7 +124,7 @@ public class GameScene extends DynamicScene implements ExplosionCreator, UpdateE
     }
 
     public void onEnemyKilled() {
-        enemiesKilled++;
+        enemiesKilled++; // kan score zijn
         activeEnemyCount--;  // Decrement active enemy counter when one is killed
         checkSpawnQueue();   // Try to spawn from the queue after killing an enemy
 
@@ -133,7 +133,8 @@ public class GameScene extends DynamicScene implements ExplosionCreator, UpdateE
             if (enemiesKilled >= currentWave * 2) {
                 enemiesKilled = 0;  // Reset for the next wave
 
-                if (currentWave % 5 == 0) {
+                if (currentWave == 5) {
+                    // is operational and does not cause crashes
                     System.out.println("Im trying to spawn the boss :(");
                     spawnBoss();  // Every 5 waves, spawn a boss
                 } else {
@@ -147,13 +148,15 @@ public class GameScene extends DynamicScene implements ExplosionCreator, UpdateE
 
     public void onBossKilled() {
         bossActive = false;  // Mark boss as defeated
-        currentWave++;  // Move to the next wave
+        //currentWave++;  // Move to the next wave
         enemiesKilled = 0;  // Reset enemy counter
         spawnEnemyWave(currentWave);  // Spawn the next wave of enemies
     }
 
     private void spawnEnemyWave(int waveNumber) {
         int enemyCount = waveNumber * 2;  // Scale the number of enemies by wave number
+
+        // bounding box that draws a "box" for enemies to spawn into
         double minX = 50;
         double maxX = getWidth() - 100;
         double minY = 50;
