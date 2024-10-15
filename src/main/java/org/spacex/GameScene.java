@@ -6,6 +6,7 @@ import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.scenes.DynamicScene;
 import org.spacex.components.*;
 import org.spacex.entities.*;
+import org.spacex.ui.HealthBar;
 
 /*
     GameScene implementeert van ExplosionCreator, een interface. Dat verplicht
@@ -48,14 +49,14 @@ public class GameScene extends DynamicScene implements ExplosionCreator {
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // hier wordt de PlayerShip gespawnt
-        PlayerShip player = new PlayerShip(new Coordinate2D(getWidth() / 2, getHeight() / 2), spaceShooter, this);
+        PlayerShip player = new PlayerShip(new Coordinate2D(getWidth() / 2, getHeight() / 2), this);
         addEntity(player);
 
         EnemyShip enemy = new EnemyShip(new Coordinate2D(getWidth() / 2, getHeight() / 4), this);
         addEntity(enemy);
 
         // Test subject: Boss, nr: 1;
-        BossShip boss = new BossShip(new Coordinate2D(getWidth() / 2, 50), "sprites/dragonboss_ship.png" ,  circularMovement, this);
+        BossShip boss = new BossShip(new Coordinate2D(getWidth() / 2, 50), "sprites/dragonboss_ship.png",  backAndForthMovement, this);
         addEntity(boss);
 
         // Test subject: Boss, nr: 2;
@@ -63,6 +64,11 @@ public class GameScene extends DynamicScene implements ExplosionCreator {
 //        addEntity(boss2);
 
 
+    }
+
+    public void addHealthBar(HealthBar healthBar) {
+        healthBar.setAnchorPoint(AnchorPoint.CENTER_CENTER);
+        addEntity(healthBar);
     }
 
     // zo kan addEntity aangeroepen worden (met Bullet als parameter)!
