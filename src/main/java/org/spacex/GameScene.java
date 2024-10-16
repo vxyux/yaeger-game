@@ -7,6 +7,7 @@ import com.github.hanyaeger.api.scenes.DynamicScene;
 import com.github.hanyaeger.api.UpdateExposer;
 import org.spacex.components.*;
 import org.spacex.entities.*;
+import org.spacex.ui.HealthBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -172,12 +173,22 @@ public class GameScene extends DynamicScene implements ExplosionCreator, UpdateE
         }
     }
 
+    public void addHealthBar(HealthBar healthBar) {
+        addEntity(healthBar);
+    }
+
+    // zo kan addEntity aangeroepen worden (met Bullet als parameter)!
+    public void addBullet(Bullet newBullet) {
+        newBullet.setAnchorPoint(AnchorPoint.CENTER_LEFT);
+        addEntity(newBullet);
+
     // Spawn the Boss
     private void spawnBoss() {
         bossActive = true;
         bossReadyToSpawn = false;  // Reset boss spawn flag
         BossShip boss = new BossShip(new Coordinate2D(getWidth() / 2, 50), "sprites/dragonboss_ship.png", backAndForthMovement, this);
         addBoss(boss);
+
     }
 
     // Add Enemy to the Scene

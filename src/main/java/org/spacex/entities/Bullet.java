@@ -6,6 +6,7 @@ import com.github.hanyaeger.api.entities.Collided;
 import com.github.hanyaeger.api.entities.Collider;
 import com.github.hanyaeger.api.entities.SceneBorderTouchingWatcher;
 import com.github.hanyaeger.api.entities.impl.DynamicSpriteEntity;
+import com.github.hanyaeger.api.media.SoundClip;
 import com.github.hanyaeger.api.scenes.SceneBorder;
 import org.spacex.GameScene;
 
@@ -33,9 +34,7 @@ public class Bullet extends DynamicSpriteEntity implements SceneBorderTouchingWa
 
     @Override
     public void onCollision(List<Collider> list) {
-        // misschien nog later nodig voor user feedback
-        //remove();
-        //explode();
+        // oncollision
     }
 
     public void explode() {
