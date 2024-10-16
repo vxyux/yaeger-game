@@ -12,7 +12,7 @@ import org.spacex.SpaceShooter;
 
 import java.util.Set;
 
-abstract class Target extends DynamicSpriteEntity implements KeyListener, SceneBorderTouchingWatcher {
+public abstract class Target extends DynamicSpriteEntity implements KeyListener, SceneBorderTouchingWatcher {
 
     private int health;
 
