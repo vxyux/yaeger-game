@@ -1,6 +1,8 @@
 package org.spacex.entities;
 import com.github.hanyaeger.api.AnchorPoint;
 import com.github.hanyaeger.api.UpdateExposer;
+import com.github.hanyaeger.api.entities.Collided;
+import com.github.hanyaeger.api.entities.Collider;
 import com.github.hanyaeger.api.entities.impl.DynamicSpriteEntity;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;
@@ -8,9 +10,11 @@ import com.github.hanyaeger.api.entities.EntitySpawner;
 import com.github.hanyaeger.api.media.SoundClip;
 import org.spacex.GameScene;
 import org.spacex.components.MovementPattern;
+
+import java.util.List;
 //import org.spacex.
 
-public class BossShip extends Target implements UpdateExposer {
+public class BossShip extends Target implements UpdateExposer, Collider, Collided {
     private EntitySpawner entitySpawner;
     private MovementPattern pattern;
     private String sprite;
@@ -47,7 +51,6 @@ public class BossShip extends Target implements UpdateExposer {
             lastBulletFiredTime = System.currentTimeMillis();
         }
     }
-
     private void fireBullet(){
         // logged de de tijd wanneer de kogel is gevuurd.
         long currentTime = System.currentTimeMillis();
@@ -61,6 +64,22 @@ public class BossShip extends Target implements UpdateExposer {
         SoundClip soundClip = new SoundClip("audios/laser.mp3");
         soundClip.setVolume(0.20);
         soundClip.play();
+    }
+
+    @Override
+    public void onCollision(List<Collider> list) {
+        for (Collider collider : list) {
+            if (collider instanceof Bullet) {
+                gameScene.onBossKilled();
+                ((Bullet) collider).remove();
+                remove();
+                explode();
+            }
+        }
+    }
+
+    public void explode() {
+        gameScene.createExplosion(getLocationInScene(), getSpeed(), new Size(150, 150));
     }
 
 
