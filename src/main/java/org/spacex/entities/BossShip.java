@@ -51,9 +51,6 @@ public class BossShip extends Target implements UpdateExposer, Collider, Collide
             lastBulletFiredTime = System.currentTimeMillis();
         }
     }
-    /*
-    beeld instanceof HandBeeld
-    */
     private void fireBullet(){
         // logged de de tijd wanneer de kogel is gevuurd.
         long currentTime = System.currentTimeMillis();
