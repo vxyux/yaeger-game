@@ -2,6 +2,7 @@ package org.spacex.entities;
 
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;
+import com.github.hanyaeger.api.UpdateExposer;
 import com.github.hanyaeger.api.entities.Collided;
 import com.github.hanyaeger.api.entities.Collider;
 import com.github.hanyaeger.api.entities.SceneBorderTouchingWatcher;
@@ -16,14 +17,20 @@ import org.spacex.ui.HealthBar;
 import java.util.List;
 import java.util.Set;
 
-public class PlayerShip extends DynamicSpriteEntity implements KeyListener, SceneBorderTouchingWatcher, Collided {
+public class PlayerShip extends DynamicSpriteEntity implements KeyListener, SceneBorderTouchingWatcher, Collided, UpdateExposer {
     private final GameScene gameScene;
     
-    private int healthPoints = 10;
+    private int healthPoints = 5;
     private final HealthBar healthBar = new HealthBar(new Coordinate2D(getSceneWidth() / 2, getSceneHeight() / 2), healthPoints);
 
     private long lastBulletFiredTime = 0;
     private long lastCollisionTime = 0;
+
+    private final long collisionCooldown = 2000;
+
+    private boolean isHit = false;
+    long flickerStartTime = 0;
+
 
     public PlayerShip(Coordinate2D location, GameScene gameScene) {
         super("gifs/player.gif", location, new Size(70, 70));
@@ -73,7 +80,8 @@ public class PlayerShip extends DynamicSpriteEntity implements KeyListener, Scen
             setMotion(3, 0d);
         }
 
-        if (spacePressed && healthPoints != 0) {
+        // prevent player from shooting when flickering/hit
+        if (spacePressed && healthPoints != 0 && !isHit) {
             fireBullet();
         }
 
@@ -120,11 +128,16 @@ public class PlayerShip extends DynamicSpriteEntity implements KeyListener, Scen
     @Override
     public void onCollision(List<Collider> colliders) {
         long currentTime = System.currentTimeMillis();
-        long COLLISION_COOLDOWN = 500;
-        if (currentTime - lastCollisionTime >= COLLISION_COOLDOWN) {
-            healthPoints--;
-            healthBar.setCurrentHealth(healthPoints);
-            lastCollisionTime = currentTime;
+        // is current time greater than collisionCooldown?
+        if (currentTime - lastCollisionTime >= collisionCooldown) {
+            if(!isHit) {
+                SoundClip hit = new SoundClip("audios/hit2.mp3");
+                hit.setVolume(0.6);
+                hit.play();
+                healthPoints--;
+                healthBar.setCurrentHealth(healthPoints);
+                lastCollisionTime = currentTime;
+            }
 
             // wanneer de player geen levens meer heeft
             if(healthPoints == 0) {
@@ -133,11 +146,37 @@ public class PlayerShip extends DynamicSpriteEntity implements KeyListener, Scen
             }
             else {
                 // logica voor flickering of korte invincibility
+                isHit = true;
+                flickerStartTime = currentTime;
             }
         }
     }
 
     public void explode() {
         gameScene.createExplosion(getLocationInScene(), 0, new Size(150, 150));
+    }
+
+    @Override
+    public void explicitUpdate(long l) {
+        // define flicker duration that -200 to end the earlier than the collision cooldown
+        long FLICKER_DURATION = collisionCooldown - 200;
+        long FLICKER_INTERVAL = 100;
+        long currentTime = System.currentTimeMillis();
+        if (isHit) {
+            // calculate how much time has passed
+            long elapsedTime = currentTime - flickerStartTime;
+            if (elapsedTime >= FLICKER_DURATION) {
+                // sets boolean too false to start flickering
+                isHit = false;
+            } else {
+                // renders the opacity of the ship using the remainder operator
+                boolean isVisible = (elapsedTime / FLICKER_INTERVAL) % 2 == 0;
+                if (isVisible) {
+                    setOpacity(0);
+                } else {
+                    setOpacity(1);
+                }
+            }
+        }
     }
 }
