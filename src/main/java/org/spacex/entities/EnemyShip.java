@@ -18,13 +18,18 @@ public class EnemyShip extends Target implements Collider, Collided {
     }
 
     @Override
+    // checks for collision
     public void onCollision(List<Collider> list) {
-
+        // checks all the collisions that are made
        for (Collider collider : list) {
            if (collider instanceof Bullet) {
+               // if a collision is made with a Bullet, then:
                gameScene.onEnemyKilled();
+               // remove the Bullet
                ((Bullet) collider).remove();
+               // remove self
                remove();
+               // boom!
                explode();
            }
        }

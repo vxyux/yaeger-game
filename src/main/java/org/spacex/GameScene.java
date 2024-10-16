@@ -66,9 +66,13 @@ public class GameScene extends DynamicScene implements ExplosionCreator, UpdateE
         spawnEnemyWave(currentWave);
     }
 
+    /*
+     checks if there are still enemies to be spawned in the queue
+    */
     public void checkSpawnQueue() {
         while (!enemySpawnQueue.isEmpty() && activeEnemyCount < MAX_ENEMIES_ON_SCREEN && !bossActive && !bossReadyToSpawn) {
             Coordinate2D position = enemySpawnQueue.poll();
+            // if there are enemy spots free, spawn enemy.
             spawnEnemy(position);
         }
     }
@@ -85,16 +89,17 @@ public class GameScene extends DynamicScene implements ExplosionCreator, UpdateE
             checkSpawnQueue();
         }
     }
-
+    // wanneer een Enemy wordt vermoord, wordt dit stukje code uitgevoerd
     public void onEnemyKilled() {
         enemiesKilled++;
         activeEnemyCount--;
-
+        // if the Boss is not active, and the Boss is not gonna spawn yet, and 'enemiesKilled' is lower than currentWave * 2;
         if (!bossActive && !bossReadyToSpawn && enemiesKilled >= currentWave * 2) {
-            if (currentWave % 10 == 0) {
+            if (currentWave % 10 == 0) { // checks if the wave is in factor 10
                 if (activeEnemyCount == 0) {
                     bossReadyToSpawn = true;  // Ready to spawn boss when field is clear
                 }
+            // else
             } else {
                 currentWave++;
                 spawnEnemyWave(currentWave);
@@ -107,6 +112,7 @@ public class GameScene extends DynamicScene implements ExplosionCreator, UpdateE
         }
     }
 
+    // if the boss is getting his ass handed to him
     public void onBossKilled() {
         bossActive = false;
         bossReadyToSpawn = false;
@@ -115,6 +121,9 @@ public class GameScene extends DynamicScene implements ExplosionCreator, UpdateE
         spawnEnemyWave(currentWave);
     }
 
+    /*
+    Create a ArrayList of locations where the enemies can safely spawn.
+    */
     private void generatePossiblePositions() {
         availablePositions = new ArrayList<>();
         usedPositions = new ArrayList<>();
@@ -129,29 +138,30 @@ public class GameScene extends DynamicScene implements ExplosionCreator, UpdateE
             }
         }
     }
-
+    // searches for a valid Position that has not yet been taken.
     private Coordinate2D getValidPosition() {
+        // if all the available positions have been taken, reset the list
         if (availablePositions.isEmpty()) {
             resetPositions();
         }
-
+        // get a random positions from the availablePositions ArrayList, and set it as the Position
         int index = random.nextInt(availablePositions.size());
         Coordinate2D position = availablePositions.get(index);
 
         availablePositions.remove(index);
         usedPositions.add(position);
-
+        // return the position
         return position;
     }
-
+    // reset the availablePositions ArrayList
     private void resetPositions() {
         availablePositions.addAll(usedPositions);
         usedPositions.clear();
     }
-
+    // Spawn the (next) Enemy Wave
     private void spawnEnemyWave(int waveNumber) {
         int enemyCount = waveNumber * 2;
-
+        // for the allowed Enemies count, find suitable positions
         for (int i = 0; i < enemyCount; i++) {
             Coordinate2D position = getValidPosition();
             if (activeEnemyCount < MAX_ENEMIES_ON_SCREEN) {
@@ -162,6 +172,7 @@ public class GameScene extends DynamicScene implements ExplosionCreator, UpdateE
         }
     }
 
+    // Spawn the Boss
     private void spawnBoss() {
         bossActive = true;
         bossReadyToSpawn = false;  // Reset boss spawn flag
@@ -169,10 +180,12 @@ public class GameScene extends DynamicScene implements ExplosionCreator, UpdateE
         addBoss(boss);
     }
 
+    // Add Enemy to the Scene
     public void addEnemy(Target enemy) {
         addEntity(enemy);
     }
 
+    // Add Boss to the Scene
     public void addBoss(BossShip boss) {
         addEntity(boss);
     }
