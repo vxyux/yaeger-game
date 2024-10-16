@@ -26,7 +26,7 @@ public class PlayerShip extends DynamicSpriteEntity implements KeyListener, Scen
     private long lastBulletFiredTime = 0;
     private long lastCollisionTime = 0;
 
-    private final long collisionCooldown = 2000;
+    private final long collisionCooldown = 1700;
 
     private boolean isHit = false;
     long flickerStartTime = 0;
@@ -113,9 +113,9 @@ public class PlayerShip extends DynamicSpriteEntity implements KeyListener, Scen
         int BULLET_COOLDOWN = 600;
         if (currentTime - lastBulletFiredTime >= BULLET_COOLDOWN) {
             // Maakt een nieuwe kogel gebaseerd op de PlayerShip's locatie
-            Bullet newBullet = new Bullet("sprites/laser_beam.png", bulletStartPosition, gameScene, 5, -180d);
+            HeroBullet newBullet = new HeroBullet("sprites/laser_beam.png", bulletStartPosition, gameScene, 5, -180d);
             newBullet.setHue(0.90);
-            gameScene.addBullet(newBullet);
+            gameScene.addHeroBullet(newBullet);
             lastBulletFiredTime = currentTime;
             new SoundClip("audios/laser.mp3").play();
         }

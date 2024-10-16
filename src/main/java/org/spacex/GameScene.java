@@ -26,7 +26,11 @@ public class GameScene extends DynamicScene implements ExplosionCreator, UpdateE
     private Queue<Coordinate2D> enemySpawnQueue = new LinkedList<>();
     private final int MAX_ENEMIES_ON_SCREEN = 5;
     private int activeEnemyCount = 0;
+    // Pre-defining Boss Movement Patterns:
     private final MovementPattern backAndForthMovement = new BackAndForthMovement(4, 1000);
+    private final MovementPattern CircularMovement = new CircularMovement(500,50,200,0.01);
+    private final MovementPattern RandomMovement = new RandomizedMovement(3, 3, 1000,300, 1000);
+
     private Coordinate2D bossPosition = new Coordinate2D(500 - 50, 100);
 
     private List<Coordinate2D> availablePositions;
@@ -53,8 +57,8 @@ public class GameScene extends DynamicScene implements ExplosionCreator, UpdateE
         PlayerShip player = new PlayerShip(new Coordinate2D(getWidth() / 2, getHeight() / 2), this);
         addEntity(player);
 
-        BossShip boss = new BossShip(new Coordinate2D(getWidth() / 2, 50), "sprites/dragonboss_ship.png" ,  backAndForthMovement, this);
-        addEntity(boss);
+//        BossShip boss = new BossShip(new Coordinate2D(getWidth() / 2, 50), "sprites/dragonboss_ship.png" ,  backAndForthMovement, this);
+//        addEntity(boss);
     }
 
     public void createExplosion(Coordinate2D anchorLocation, double speed, Size explosionSize) {
@@ -175,18 +179,34 @@ public class GameScene extends DynamicScene implements ExplosionCreator, UpdateE
         addEntity(healthBar);
     }
 
-    // zo kan addEntity aangeroepen worden (met Bullet als parameter)!
-    public void addBullet(Bullet newBullet) {
+    // zo kan addEntity aangeroepen worden (met EnemyBullet als parameter)!
+    public void addEnemyBullet(EnemyBullet newBullet) {
         newBullet.setAnchorPoint(AnchorPoint.CENTER_LEFT);
         addEntity(newBullet);
+    }
+    // zo kan addEntity aangeroepen worden (met HeroBullet als parameter)!
+    public void addHeroBullet(HeroBullet myBullet) {
+        myBullet.setAnchorPoint(AnchorPoint.CENTER_LEFT);
+        addEntity(myBullet);
     }
     // Spawn the Boss
     private void spawnBoss() {
         bossActive = true;
         bossReadyToSpawn = false;  // Reset boss spawn flag
-        BossShip boss = new BossShip(new Coordinate2D(getWidth() / 2, 50), "sprites/dragonboss_ship.png", backAndForthMovement, this);
-        addBoss(boss);
+        Random rand = new Random();
+        int randomNumber = rand.nextInt(5);
 
+        // Make it possible to have a different Boss Spawn in every Boss Round:
+        if (randomNumber == 1) { // if randomNumber is 1:
+            BossShip boss = new BossShip(new Coordinate2D(getWidth() / 2, 50), "sprites/spacecraft-symmetry.png" ,  CircularMovement, this);
+            addEntity(boss);
+        }
+        if (randomNumber == 2) { // if randomNumber is 2:
+            BossShip boss = new BossShip(new Coordinate2D(getWidth() / 2, 50), "sprites/carrier_boss.png" ,RandomMovement, this);
+        } else { // if randomNumber is not 1 or 2:
+            BossShip boss = new BossShip(new Coordinate2D(getWidth() / 2, 50), "sprites/dragonboss_ship.png", backAndForthMovement, this);
+            addBoss(boss);
+        }
     }
 
     // Add Enemy to the Scene

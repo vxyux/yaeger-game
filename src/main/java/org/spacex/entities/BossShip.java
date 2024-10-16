@@ -1,9 +1,7 @@
 package org.spacex.entities;
-import com.github.hanyaeger.api.AnchorPoint;
 import com.github.hanyaeger.api.UpdateExposer;
 import com.github.hanyaeger.api.entities.Collided;
 import com.github.hanyaeger.api.entities.Collider;
-import com.github.hanyaeger.api.entities.impl.DynamicSpriteEntity;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.entities.EntitySpawner;
@@ -58,8 +56,8 @@ public class BossShip extends Target implements UpdateExposer, Collider, Collide
         double centerY = this.getAnchorLocation().getY() + 50 + this.getHeight() / 2;
         Coordinate2D bulletStartPosition = new Coordinate2D(centerX, centerY);
         // Maakt een nieuwe kogel gebasseerd op de BossShip's locatie
-        Bullet newBullet = new Bullet("sprites/laser_beam.png", bulletStartPosition, gameScene, 4,0);
-        gameScene.addBullet(newBullet);
+        EnemyBullet newBullet = new EnemyBullet("sprites/laser_beam.png", bulletStartPosition, gameScene, 4,0);
+        gameScene.addEnemyBullet(newBullet);
         lastBulletFiredTime = currentTime;
         SoundClip soundClip = new SoundClip("audios/laser.mp3");
         soundClip.setVolume(0.20);
@@ -69,9 +67,9 @@ public class BossShip extends Target implements UpdateExposer, Collider, Collide
     @Override
     public void onCollision(List<Collider> list) {
         for (Collider collider : list) {
-            if (collider instanceof Bullet) {
+            if (collider instanceof HeroBullet) {
                 gameScene.onBossKilled();
-                ((Bullet) collider).remove();
+                ((HeroBullet) collider).remove();
                 remove();
                 explode();
             }
