@@ -50,13 +50,11 @@ public class GameScene extends DynamicScene implements ExplosionCreator, UpdateE
     public void setupEntities() {
         spawnInitialWave();
 
-        PlayerShip player = new PlayerShip(new Coordinate2D(getWidth() / 2, getHeight() / 2), spaceShooter, this);
+        PlayerShip player = new PlayerShip(new Coordinate2D(getWidth() / 2, getHeight() / 2), this);
         addEntity(player);
-    }
 
-    public void addBullet(Bullet newBullet) {
-        newBullet.setAnchorPoint(AnchorPoint.CENTER_LEFT);
-        addEntity(newBullet);
+        BossShip boss = new BossShip(new Coordinate2D(getWidth() / 2, 50), "sprites/dragonboss_ship.png" ,  backAndForthMovement, this);
+        addEntity(boss);
     }
 
     public void createExplosion(Coordinate2D anchorLocation, double speed, Size explosionSize) {
@@ -90,7 +88,7 @@ public class GameScene extends DynamicScene implements ExplosionCreator, UpdateE
             checkSpawnQueue();
         }
     }
-    // wanneer een Enemy wordt vermoord, wordt dit stukje code uitgevoerd
+    // wanneer een Enemy wordt vermoord, wordt dit stukje code uitgevoerd.
     public void onEnemyKilled() {
         enemiesKilled++;
         activeEnemyCount--;
@@ -113,7 +111,7 @@ public class GameScene extends DynamicScene implements ExplosionCreator, UpdateE
         }
     }
 
-    // if the boss is getting his ass handed to him
+    // if the boss dies..
     public void onBossKilled() {
         bossActive = false;
         bossReadyToSpawn = false;
@@ -181,7 +179,7 @@ public class GameScene extends DynamicScene implements ExplosionCreator, UpdateE
     public void addBullet(Bullet newBullet) {
         newBullet.setAnchorPoint(AnchorPoint.CENTER_LEFT);
         addEntity(newBullet);
-
+    }
     // Spawn the Boss
     private void spawnBoss() {
         bossActive = true;
