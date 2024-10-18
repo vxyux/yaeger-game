@@ -143,6 +143,7 @@ public class PlayerShip extends DynamicSpriteEntity implements KeyListener, Scen
             if(healthPoints == 0) {
                 explode();
                 remove();
+                gameScene.showGameOver();
             }
             else {
                 // logica voor flickering of korte invincibility
