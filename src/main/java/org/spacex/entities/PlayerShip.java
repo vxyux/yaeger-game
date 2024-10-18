@@ -26,7 +26,7 @@ public class PlayerShip extends DynamicSpriteEntity implements KeyListener, Scen
     private long lastBulletFiredTime = 0;
     private long lastCollisionTime = 0;
 
-    private final long collisionCooldown = 1700;
+    private final long collisionCooldown = 1600;
 
     private boolean isHit = false;
     long flickerStartTime = 0;
