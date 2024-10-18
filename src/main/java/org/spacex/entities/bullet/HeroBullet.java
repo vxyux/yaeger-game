@@ -1,4 +1,4 @@
-package org.spacex.entities;
+package org.spacex.entities.bullet;
 
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;
@@ -8,6 +8,8 @@ import com.github.hanyaeger.api.entities.SceneBorderTouchingWatcher;
 import com.github.hanyaeger.api.entities.impl.DynamicSpriteEntity;
 import com.github.hanyaeger.api.scenes.SceneBorder;
 import org.spacex.GameScene;
+import org.spacex.entities.BossShip;
+import org.spacex.entities.EnemyShip;
 
 import java.util.List;
 
@@ -33,10 +35,15 @@ public class HeroBullet extends DynamicSpriteEntity implements Bullet, SceneBord
 
     @Override
     public void onCollision(List<Collider> list) {
-        // oncollision
+        // user feedback zodat de speler weet dat de kogel de baas heeft geraakt
+        for (Collider collider : list) {
+            if (collider instanceof BossShip) {
+                explode();
+            }
+        }
     }
 
     public void explode() {
-        gameScene.createExplosion(getLocationInScene(), getSpeed(), new Size(60, 60));
+        gameScene.createExplosion(getLocationInScene(), 0, new Size(60, 60));
     }
 }

@@ -7,64 +7,59 @@ import com.github.hanyaeger.api.entities.Collided;
 import com.github.hanyaeger.api.entities.Collider;
 import com.github.hanyaeger.api.media.SoundClip;
 import org.spacex.GameScene;
+import org.spacex.entities.bullet.EnemyBullet;
+import org.spacex.entities.bullet.HeroBullet;
 
 import java.util.List;
+import java.util.Random;
 
-public class EnemyShip extends Target implements Collider, Collided, UpdateExposer {
-    private GameScene gameScene;
+public class EnemyShip extends Target implements Collider, UpdateExposer {
+    private final GameScene gameScene;
 
+    private static final int enemyShipHealth = 1;
     private long lastBulletFiredTime = 0;
     private static final int BULLET_COOLDOWN = 2000;
+    private long lastSpawnedTime;
 
     public EnemyShip(Coordinate2D location, GameScene gameScene) {
-        super("sprites/enemyship.png", location, new Size(110, 110));
+        super("sprites/enemyship.png", location, new Size(110, 110), enemyShipHealth);
         this.gameScene = gameScene;
-    }
-
-    @Override
-    // checks for collision
-    public void onCollision(List<Collider> list) {
-        // checks all the collisions that are made
-       for (Collider collider : list) {
-           if (collider instanceof HeroBullet) {
-               // if a collision is made with a Bullet, then:
-               gameScene.onEnemyKilled();
-               // remove the Bullet
-               ((HeroBullet) collider).remove();
-               // remove self
-               remove();
-               // boom!
-               explode();
-           }
-       }
+        // verkrijg tijd wanneer EnemyShip wordt geinstantieerd
+        this.lastSpawnedTime = System.currentTimeMillis();
     }
 
     // Explicitly override Update func from yaeger to 'force' our own update.
     @Override
     public void explicitUpdate(long l) {
-        // Zorg dat de Enemy elke seconde een kogel afvuurt
-        if (System.currentTimeMillis() - lastBulletFiredTime >= BULLET_COOLDOWN) {
+        int SPAWN_COOLDOWN = getRandomSpawnCooldown();
+
+        if(System.currentTimeMillis() - lastSpawnedTime > SPAWN_COOLDOWN) {
             fireBullet();
-            lastBulletFiredTime = System.currentTimeMillis();
         }
     }
 
     private void fireBullet(){
-        // logged de de tijd wanneer de kogel is gevuurd.
         long currentTime = System.currentTimeMillis();
+
+        // Maakt een nieuwe kogel gebasseerd op de EnemyShip's locatie
         double centerX = this.getAnchorLocation().getX() + this.getWidth() / 3;
         double centerY = this.getAnchorLocation().getY() + 50 + this.getHeight() / 2;
         Coordinate2D bulletStartPosition = new Coordinate2D(centerX, centerY);
-        // Maakt een nieuwe kogel gebasseerd op de BossShip's locatie
-        EnemyBullet newBullet = new EnemyBullet("sprites/laser_beam.png", bulletStartPosition, gameScene, 4,0);
-        gameScene.addEnemyBullet(newBullet);
-        lastBulletFiredTime = currentTime;
-        SoundClip soundClip = new SoundClip("audios/laser.mp3");
-        soundClip.setVolume(0.20);
-        soundClip.play();
+
+        // Zorg dat de Enemy elke seconde een kogel afvuurt
+        if (System.currentTimeMillis() - lastBulletFiredTime >= BULLET_COOLDOWN) {
+            lastBulletFiredTime = System.currentTimeMillis();
+            EnemyBullet newBullet = new EnemyBullet("sprites/laser_beam.png", bulletStartPosition, gameScene, 4, 0);
+            gameScene.addEnemyBullet(newBullet);
+            lastBulletFiredTime = currentTime;
+            SoundClip soundClip = new SoundClip("audios/laser.mp3");
+            soundClip.setVolume(0.20);
+            soundClip.play();
+        }
     }
 
     public void explode() {
         gameScene.createExplosion(getLocationInScene(), getSpeed(), new Size(150, 150));
+        gameScene.onEnemyKilled();
     }
 }

@@ -12,6 +12,7 @@ import com.github.hanyaeger.api.scenes.SceneBorder;
 import com.github.hanyaeger.api.userinput.KeyListener;
 import javafx.scene.input.KeyCode;
 import org.spacex.GameScene;
+import org.spacex.entities.bullet.HeroBullet;
 import org.spacex.ui.HealthBar;
 
 import java.util.List;

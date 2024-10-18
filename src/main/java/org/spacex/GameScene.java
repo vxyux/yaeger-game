@@ -7,6 +7,8 @@ import com.github.hanyaeger.api.scenes.DynamicScene;
 import com.github.hanyaeger.api.UpdateExposer;
 import org.spacex.components.*;
 import org.spacex.entities.*;
+import org.spacex.entities.bullet.EnemyBullet;
+import org.spacex.entities.bullet.HeroBullet;
 import org.spacex.ui.HealthBar;
 
 import java.util.ArrayList;
@@ -52,13 +54,13 @@ public class GameScene extends DynamicScene implements ExplosionCreator, UpdateE
 
     @Override
     public void setupEntities() {
-        spawnInitialWave();
+        //spawnInitialWave();
 
         PlayerShip player = new PlayerShip(new Coordinate2D(getWidth() / 2, getHeight() / 2), this);
         addEntity(player);
 
-//        BossShip boss = new BossShip(new Coordinate2D(getWidth() / 2, 50), "sprites/dragonboss_ship.png" ,  backAndForthMovement, this);
-//        addEntity(boss);
+        BossShip boss = new BossShip(new Coordinate2D(getWidth() / 2, 50), "sprites/dragonboss_ship.png" ,  backAndForthMovement, this);
+        addEntity(boss);
     }
 
     public void createExplosion(Coordinate2D anchorLocation, double speed, Size explosionSize) {
