@@ -162,6 +162,12 @@ public class GameScene extends DynamicScene implements ExplosionCreator, UpdateE
         // return the position
         return position;
     }
+
+    private void spawnMeteorite(Coordinate2D position) {
+        Meteorite meteorite = new Meteorite(position, this);
+        addEntity(meteorite);  // Add meteorite to the scene
+    }
+
     // reset the availablePositions ArrayList
     private void resetPositions() {
         availablePositions.addAll(usedPositions);
@@ -170,10 +176,14 @@ public class GameScene extends DynamicScene implements ExplosionCreator, UpdateE
     // Spawn the (next) Enemy Wave
     private void spawnEnemyWave(int waveNumber) {
         int enemyCount = waveNumber * 2;
+        double meteoriteSpawnChance = 0.8;
         // for the allowed Enemies count, find suitable positions
         for (int i = 0; i < enemyCount; i++) {
             Coordinate2D position = getValidPosition();
             if (activeEnemyCount < MAX_ENEMIES_ON_SCREEN) {
+                if (random.nextDouble() < meteoriteSpawnChance) {
+                    spawnMeteorite(position);  // 20% chance to spawn a meteorite
+                }
                 spawnEnemy(position);
             } else {
                 enemySpawnQueue.add(position);

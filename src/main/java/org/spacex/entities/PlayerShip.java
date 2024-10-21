@@ -138,6 +138,14 @@ public class PlayerShip extends DynamicSpriteEntity implements KeyListener, Scen
                 healthPoints--;
                 healthBar.setCurrentHealth(healthPoints);
                 lastCollisionTime = currentTime;
+
+                for (Collider collider : colliders) {
+                    if (collider instanceof Meteorite) {
+                        // Remove the bullet
+                        ((Meteorite) collider).remove();
+                        healthPoints = 0;
+                    }
+                }
             }
 
             // wanneer de player geen levens meer heeft
