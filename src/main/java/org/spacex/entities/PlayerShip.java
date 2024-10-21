@@ -12,6 +12,7 @@ import com.github.hanyaeger.api.scenes.SceneBorder;
 import com.github.hanyaeger.api.userinput.KeyListener;
 import javafx.scene.input.KeyCode;
 import org.spacex.GameScene;
+import org.spacex.entities.bullet.HeroBullet;
 import org.spacex.ui.HealthBar;
 
 import java.util.List;
@@ -26,7 +27,7 @@ public class PlayerShip extends DynamicSpriteEntity implements KeyListener, Scen
     private long lastBulletFiredTime = 0;
     private long lastCollisionTime = 0;
 
-    private final long collisionCooldown = 2000;
+    private final long collisionCooldown = 1600;
 
     private boolean isHit = false;
     long flickerStartTime = 0;
@@ -113,9 +114,9 @@ public class PlayerShip extends DynamicSpriteEntity implements KeyListener, Scen
         int BULLET_COOLDOWN = 600;
         if (currentTime - lastBulletFiredTime >= BULLET_COOLDOWN) {
             // Maakt een nieuwe kogel gebaseerd op de PlayerShip's locatie
-            Bullet newBullet = new Bullet("sprites/laser_beam.png", bulletStartPosition, gameScene, 5, -180d);
+            HeroBullet newBullet = new HeroBullet("sprites/laser_beam.png", bulletStartPosition, gameScene, 5, -180d);
             newBullet.setHue(0.90);
-            gameScene.addBullet(newBullet);
+            gameScene.addHeroBullet(newBullet);
             lastBulletFiredTime = currentTime;
             new SoundClip("audios/laser.mp3").play();
         }
