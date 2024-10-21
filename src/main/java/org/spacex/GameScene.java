@@ -171,7 +171,7 @@ public class GameScene extends DynamicScene implements ExplosionCreator, UpdateE
     // Spawn the (next) Enemy Wave
     private void spawnEnemyWave(int waveNumber) {
         int enemyCount = waveNumber * 2;
-        double meteoriteSpawnChance = 0.8;
+        double meteoriteSpawnChance = 0.2; // give a 20% chance of spawning a meteorite
         // for the allowed Enemies count, find suitable positions
         for (int i = 0; i < enemyCount; i++) {
             Coordinate2D position = getValidPosition();
