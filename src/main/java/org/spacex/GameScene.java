@@ -163,11 +163,6 @@ public class GameScene extends DynamicScene implements ExplosionCreator, UpdateE
         return position;
     }
 
-    private void spawnMeteorite(Coordinate2D position) {
-        Meteorite meteorite = new Meteorite(position, this);
-        addEntity(meteorite);  // Add meteorite to the scene
-    }
-
     // reset the availablePositions ArrayList
     private void resetPositions() {
         availablePositions.addAll(usedPositions);
@@ -189,6 +184,11 @@ public class GameScene extends DynamicScene implements ExplosionCreator, UpdateE
                 enemySpawnQueue.add(position);
             }
         }
+    }
+
+    private void spawnMeteorite(Coordinate2D position) {
+        Meteorite meteorite = new Meteorite(position, this);
+        addEntity(meteorite);  // Add meteorite to the scene
     }
 
     public void addHealthBar(HealthBar healthBar) {
