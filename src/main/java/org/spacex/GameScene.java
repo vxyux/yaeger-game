@@ -3,8 +3,12 @@ package org.spacex;
 import com.github.hanyaeger.api.AnchorPoint;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;
+import com.github.hanyaeger.api.entities.impl.TextEntity;
 import com.github.hanyaeger.api.scenes.DynamicScene;
 import com.github.hanyaeger.api.UpdateExposer;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import org.spacex.components.*;
 import org.spacex.entities.*;
 import org.spacex.entities.bullet.EnemyBullet;
@@ -219,5 +223,30 @@ public class GameScene extends DynamicScene implements ExplosionCreator, UpdateE
     // Add Boss to the Scene
     public void addBoss(BossShip boss) {
         addEntity(boss);
+    }
+
+    public void showGameOver() {
+        var titleText = new TextEntity(
+                new Coordinate2D(getWidth() / 2, getHeight() / 2),
+                "GAME OVER"
+        );
+        titleText.setAnchorPoint(AnchorPoint.CENTER_CENTER);
+        titleText.setFill(Color.RED);
+        titleText.setFont(Font.font("Monospaced", FontWeight.BOLD, 80));
+        addEntity(titleText);
+
+        var retryButton = new RetryButton(
+                new Coordinate2D(getWidth() / 2, (getHeight() / 2) + 120), spaceShooter, this);
+        retryButton.setAnchorPoint(AnchorPoint.CENTER_CENTER);
+        addEntity(retryButton);
+
+        var quitButton = new QuitButton(
+                new Coordinate2D(getWidth() / 2, (getHeight() / 2) + 160), spaceShooter);
+        quitButton.setAnchorPoint(AnchorPoint.CENTER_CENTER);
+        addEntity(quitButton);
+    }
+
+    public void restartGame() {
+        spaceShooter.restartGame();
     }
 }
