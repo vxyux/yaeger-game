@@ -7,15 +7,10 @@ import com.github.hanyaeger.api.entities.Collider;
 import com.github.hanyaeger.api.entities.SceneBorderTouchingWatcher;
 import com.github.hanyaeger.api.entities.impl.DynamicSpriteEntity;
 import com.github.hanyaeger.api.scenes.SceneBorder;
-import com.github.hanyaeger.api.userinput.KeyListener;
-import javafx.scene.input.KeyCode;
-import org.spacex.GameScene;
-import org.spacex.SpaceShooter;
 import org.spacex.entities.bullet.HeroBullet;
 
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
 
 public abstract class Target extends DynamicSpriteEntity implements SceneBorderTouchingWatcher, Collided {
 

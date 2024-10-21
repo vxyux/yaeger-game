@@ -14,6 +14,7 @@ import org.spacex.entities.*;
 import org.spacex.entities.bullet.EnemyBullet;
 import org.spacex.entities.bullet.HeroBullet;
 import org.spacex.ui.HealthBar;
+import org.spacex.ui.ScoreText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +44,8 @@ public class GameScene extends DynamicScene implements ExplosionCreator, UpdateE
     private List<Coordinate2D> usedPositions;
     private final double minDistance = 150;
 
+    private ScoreText scoreText;
+
     public GameScene(SpaceShooter spaceShooter) {
         this.spaceShooter = spaceShooter;
     }
@@ -63,8 +66,12 @@ public class GameScene extends DynamicScene implements ExplosionCreator, UpdateE
         PlayerShip player = new PlayerShip(new Coordinate2D(getWidth() / 2, getHeight() / 2), this);
         addEntity(player);
 
-        BossShip boss = new BossShip(new Coordinate2D(getWidth() / 2, 50), "sprites/dragonboss_ship.png" ,  backAndForthMovement, this);
+        BossShip boss = new BossShip(new Coordinate2D(getWidth() / 2, 50), "gifs/boss.gif" ,  backAndForthMovement, this);
         addEntity(boss);
+
+        // minus 25 omdat de score dan wel zichtbaar is
+        scoreText = new ScoreText(new Coordinate2D(20, getHeight() - 50));
+        addEntity(scoreText);
     }
 
     public void createExplosion(Coordinate2D anchorLocation, double speed, Size explosionSize) {
@@ -99,9 +106,10 @@ public class GameScene extends DynamicScene implements ExplosionCreator, UpdateE
         }
     }
     // wanneer een Enemy wordt vermoord, wordt dit stukje code uitgevoerd.
-    public void onEnemyKilled() {
+    public void onEnemyKilled(int enemyScore) {
         enemiesKilled++;
         activeEnemyCount--;
+        scoreText.setScore(enemyScore);
         // if the Boss is not active, and the Boss is not gonna spawn yet, and 'enemiesKilled' is lower than currentWave * 2;
         if (!bossActive && !bossReadyToSpawn && enemiesKilled >= currentWave * 2) {
             if (currentWave % 10 == 0) { // checks if the wave is in factor 10
@@ -121,8 +129,9 @@ public class GameScene extends DynamicScene implements ExplosionCreator, UpdateE
         }
     }
 
-    // if the boss dies..
-    public void onBossKilled() {
+    // if the boss dies
+    public void onBossKilled(int bossScore) {
+        scoreText.setScore(bossScore);
         bossActive = false;
         bossReadyToSpawn = false;
         enemiesKilled = 0;
@@ -187,7 +196,7 @@ public class GameScene extends DynamicScene implements ExplosionCreator, UpdateE
 
     // zo kan addEntity aangeroepen worden (met EnemyBullet als parameter)!
     public void addEnemyBullet(EnemyBullet newBullet) {
-        newBullet.setAnchorPoint(AnchorPoint.CENTER_LEFT);
+        newBullet.setAnchorPoint(AnchorPoint.CENTER_CENTER);
         addEntity(newBullet);
     }
     // zo kan addEntity aangeroepen worden (met HeroBullet als parameter)!

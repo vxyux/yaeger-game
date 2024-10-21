@@ -1,6 +1,7 @@
 module spaceshooter {
     requires hanyaeger;
     requires com.google.guice;
+    requires org.checkerframework.checker.qual;
 
     exports org.spacex;
     
