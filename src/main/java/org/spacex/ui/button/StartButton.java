@@ -1,4 +1,4 @@
-package org.spacex.components;
+package org.spacex.components.button;
 
 import com.github.hanyaeger.api.Coordinate2D;
 import javafx.scene.input.MouseButton;

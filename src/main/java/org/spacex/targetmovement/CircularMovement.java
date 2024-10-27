@@ -1,4 +1,4 @@
-package org.spacex.components;
+package org.spacex.components.movementpattern;
 
 import com.github.hanyaeger.api.Coordinate2D;
 
