@@ -5,7 +5,7 @@ import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.UpdateExposer;
 import com.github.hanyaeger.api.entities.Collider;
 import com.github.hanyaeger.api.media.SoundClip;
-import org.spacex.GameScene;
+import org.spacex.core.GameScene;
 import org.spacex.entities.bullet.EnemyBullet;
 
 public class EnemyShip extends Target implements Collider, UpdateExposer {

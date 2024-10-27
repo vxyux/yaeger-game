@@ -1,4 +1,4 @@
-package org.spacex;
+package org.spacex.utils;
 
 import com.github.hanyaeger.api.Timer;
 import org.spacex.entities.misc.Explosion;

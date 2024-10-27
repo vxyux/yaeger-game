@@ -6,7 +6,7 @@ import com.github.hanyaeger.api.entities.Collider;
 import com.github.hanyaeger.api.entities.SceneBorderTouchingWatcher;
 import com.github.hanyaeger.api.entities.impl.DynamicSpriteEntity;
 import com.github.hanyaeger.api.scenes.SceneBorder;
-import org.spacex.GameScene;
+import org.spacex.core.GameScene;
 
 public class EnemyBullet extends DynamicSpriteEntity implements Bullet, SceneBorderTouchingWatcher, Collider {
     private double direction;

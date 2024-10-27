@@ -1,4 +1,4 @@
-package org.spacex;
+package org.spacex.core.additional;
 
 import com.github.hanyaeger.api.AnchorPoint;
 import com.github.hanyaeger.api.Coordinate2D;
@@ -7,6 +7,7 @@ import com.github.hanyaeger.api.scenes.StaticScene;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import org.spacex.core.SpaceShooter;
 import org.spacex.ui.button.QuitButton;
 import org.spacex.ui.button.StartButton;
 

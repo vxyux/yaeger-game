@@ -5,7 +5,8 @@ import com.github.hanyaeger.api.entities.Collider;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.media.SoundClip;
-import org.spacex.GameScene;
+import org.spacex.core.BossManager;
+import org.spacex.core.GameScene;
 import org.spacex.targetmovement.MovementPattern;
 import org.spacex.entities.bullet.EnemyBullet;
 //import org.spacex.
@@ -66,6 +67,6 @@ public class BossShip extends Target implements UpdateExposer, Collider, Collide
 
     public void explode() {
         gameScene.createExplosion(getLocationInScene(), getSpeed(), new Size(150, 150));
-        gameScene.onBossKilled();
+        gameScene.getBossManager().onBossKilled();
     }
 }

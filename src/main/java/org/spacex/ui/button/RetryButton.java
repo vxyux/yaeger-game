@@ -3,8 +3,8 @@ import com.github.hanyaeger.api.Coordinate2D;
 import javafx.scene.Cursor;
 import javafx.scene.input.MouseButton;
 import javafx.scene.paint.Color;
-import org.spacex.GameScene;
-import org.spacex.SpaceShooter;
+import org.spacex.core.GameScene;
+import org.spacex.core.SpaceShooter;
 
 
 public class RetryButton extends Button  {
