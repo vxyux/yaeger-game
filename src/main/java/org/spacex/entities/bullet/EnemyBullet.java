@@ -2,16 +2,11 @@ package org.spacex.entities.bullet;
 
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;
-import com.github.hanyaeger.api.entities.Collided;
 import com.github.hanyaeger.api.entities.Collider;
 import com.github.hanyaeger.api.entities.SceneBorderTouchingWatcher;
 import com.github.hanyaeger.api.entities.impl.DynamicSpriteEntity;
 import com.github.hanyaeger.api.scenes.SceneBorder;
 import org.spacex.GameScene;
-import org.spacex.entities.BossShip;
-import org.spacex.entities.PlayerShip;
-
-import java.util.List;
 
 public class EnemyBullet extends DynamicSpriteEntity implements Bullet, SceneBorderTouchingWatcher, Collider {
     private double direction;

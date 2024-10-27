@@ -8,8 +8,7 @@ import com.github.hanyaeger.api.entities.SceneBorderTouchingWatcher;
 import com.github.hanyaeger.api.entities.impl.DynamicSpriteEntity;
 import com.github.hanyaeger.api.scenes.SceneBorder;
 import org.spacex.GameScene;
-import org.spacex.entities.BossShip;
-import org.spacex.entities.EnemyShip;
+import org.spacex.entities.enemy.BossShip;
 
 import java.util.List;
 

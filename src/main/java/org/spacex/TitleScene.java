@@ -7,8 +7,8 @@ import com.github.hanyaeger.api.scenes.StaticScene;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import org.spacex.components.QuitButton;
-import org.spacex.components.StartButton;
+import org.spacex.ui.button.QuitButton;
+import org.spacex.ui.button.StartButton;
 
 public class TitleScene extends StaticScene {
     private SpaceShooter spaceShooter;

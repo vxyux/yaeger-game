@@ -1,4 +1,4 @@
-package org.spacex.entities.misc;
+package org.spacex;
 
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;

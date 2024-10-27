@@ -1,15 +1,15 @@
-package org.spacex.components.movementpattern;
+package org.spacex.targetmovement;
 
 import com.github.hanyaeger.api.Coordinate2D;
 
 import java.util.Random;
 
 public class RandomizedMovement implements MovementPattern {
-    private double speedX;       // Snelheid in X-richting
-    private double speedY;       // Snelheid in Y-richting
-    private double sceneWidth;   // Breedte
-    private double sceneHeight;  // Hoogte
-    private Random random = new Random(); // Random integer
+    private final double speedX;       // Snelheid in X-richting
+    private final double speedY;       // Snelheid in Y-richting
+    private final double sceneWidth;   // Breedte
+    private final double sceneHeight;  // Hoogte
+    private final Random random = new Random(); // Random integer
     private long changeDirectionTime; // Tijd wanneer de richting voor het laatst is veranderd
     private final long changeInterval; // Interval voor het veranderen van richting
     private Coordinate2D direction; // Huidige bewegingsrichting

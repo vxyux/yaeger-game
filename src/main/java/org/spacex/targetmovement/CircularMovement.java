@@ -1,13 +1,13 @@
-package org.spacex.components.movementpattern;
+package org.spacex.targetmovement;
 
 import com.github.hanyaeger.api.Coordinate2D;
 
 public class CircularMovement implements MovementPattern {
-    private double centerX;
-    private double centerY;
-    private double radius;
+    private final double centerX;
+    private final double centerY;
+    private final double radius;
     private double angle = 0;
-    private double speed;
+    private final double speed;
 
     public CircularMovement(double centerX, double centerY, double radius, double speed) {
         this.centerX = centerX;
@@ -25,12 +25,11 @@ public class CircularMovement implements MovementPattern {
         Bij 90 graden (π/2 radialen) is de cosinus 0 (geen x-verplaatsing).
         Bij 180 graden (π radialen) is de cosinus -1 (naar links wijzend langs de x-as).
         */
-        double x= centerX + radius * Math.cos(angle);
+        double x = centerX + radius * Math.cos(angle);
         double y = centerY + radius * Math.sin(angle);
 
         return new Coordinate2D(x, y);
     }
-
 
 
 }

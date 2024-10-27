@@ -1,11 +1,11 @@
-package org.spacex.entities;
+package org.spacex.entities.misc;
 
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.TimerContainer;
 import com.github.hanyaeger.api.entities.impl.DynamicSpriteEntity;
 import com.github.hanyaeger.api.media.SoundClip;
-import org.spacex.components.explosion.ExplosionTimer;
+import org.spacex.ExplosionTimer;
 
 public class Explosion extends DynamicSpriteEntity implements TimerContainer {
     private int frameIndex = 0;

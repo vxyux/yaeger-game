@@ -1,11 +1,7 @@
-package org.spacex.ui;
+package org.spacex.ui.element;
 
-import com.github.hanyaeger.api.AnchorPoint;
 import com.github.hanyaeger.api.Coordinate2D;
-import com.github.hanyaeger.api.UpdateExposer;
-import com.github.hanyaeger.api.entities.SceneBorderTouchingWatcher;
 import com.github.hanyaeger.api.entities.impl.DynamicRectangleEntity;
-import com.github.hanyaeger.api.scenes.SceneBorder;
 import javafx.scene.paint.Color;
 
 public class HealthBar extends DynamicRectangleEntity {

@@ -1,4 +1,4 @@
-package org.spacex.ui;
+package org.spacex.ui.element;
 
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.entities.impl.TextEntity;

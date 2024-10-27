@@ -1,4 +1,4 @@
-package org.spacex.components.movementpattern;
+package org.spacex.targetmovement;
 
 import com.github.hanyaeger.api.Coordinate2D;
 
@@ -12,6 +12,7 @@ public class BackAndForthMovement implements MovementPattern {
         this.speed = speed;
         this.sceneWidth = sceneWidth;
     }
+
     /*
     Override van super (mocht het nodig zijn).
 
