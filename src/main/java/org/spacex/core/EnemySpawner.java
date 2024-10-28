@@ -68,9 +68,14 @@ public class EnemySpawner {
 
     protected void spawnEnemyWave(int waveNumber) {
         int enemyCount = waveNumber * 2;
+        double meteoriteSpawnChance = 0.2; // give a 20% chance of spawning a meteorite
+        // for the allowed Enemies count, find suitable positions
         for (int i = 0; i < enemyCount; i++) {
             Coordinate2D position = PositionManager.getValidPosition(availablePositions, usedPositions, random);
             if (activeEnemyCount < MAX_ENEMIES_ON_SCREEN) {
+                if (random.nextDouble() < meteoriteSpawnChance) {
+                    gameScene.spawnMeteorite(position);  // 20% chance to spawn a meteorite
+                }
                 spawnEnemy(position);
             } else {
                 enemySpawnQueue.add(position);
