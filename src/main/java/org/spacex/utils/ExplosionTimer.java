@@ -1,7 +1,7 @@
-package org.spacex.components;
+package org.spacex.utils;
 
-import org.spacex.entities.Explosion;
 import com.github.hanyaeger.api.Timer;
+import org.spacex.entities.misc.Explosion;
 
 public class ExplosionTimer extends Timer {
     private Explosion explosion;

@@ -3,10 +3,13 @@ module spaceshooter {
     requires com.google.guice;
     requires org.checkerframework.checker.qual;
 
-    exports org.spacex;
+//    exports org.spacex;
     
     opens backgrounds;
     opens audios;
     opens sprites;
     opens gifs;
+    exports org.spacex.core;
+    exports org.spacex.core.additional;
+    exports org.spacex.utils;
 }

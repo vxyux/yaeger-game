@@ -1,4 +1,4 @@
-package org.spacex.entities;
+package org.spacex.entities.player;
 
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;
@@ -11,9 +11,9 @@ import com.github.hanyaeger.api.media.SoundClip;
 import com.github.hanyaeger.api.scenes.SceneBorder;
 import com.github.hanyaeger.api.userinput.KeyListener;
 import javafx.scene.input.KeyCode;
-import org.spacex.GameScene;
+import org.spacex.core.GameScene;
 import org.spacex.entities.bullet.HeroBullet;
-import org.spacex.ui.HealthBar;
+import org.spacex.ui.element.HealthBar;
 
 import java.util.List;
 import java.util.Set;

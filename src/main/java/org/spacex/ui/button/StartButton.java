@@ -1,9 +1,9 @@
-package org.spacex.components;
+package org.spacex.ui.button;
 
 import com.github.hanyaeger.api.Coordinate2D;
 import javafx.scene.input.MouseButton;
 import javafx.scene.paint.Color;
-import org.spacex.SpaceShooter;
+import org.spacex.core.SpaceShooter;
 
 public class StartButton extends Button {
     private SpaceShooter spaceShooter;

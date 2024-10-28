@@ -1,7 +1,9 @@
-package org.spacex;
+package org.spacex.core;
 
 import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.YaegerGame;
+import org.spacex.core.additional.GameOverScreen;
+import org.spacex.core.additional.TitleScene;
 
 /**
  * Hello world!

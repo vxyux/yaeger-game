@@ -1,7 +1,6 @@
-package org.spacex.entities;
+package org.spacex.entities.misc;
 
 import com.github.hanyaeger.api.Coordinate2D;
-import com.github.hanyaeger.api.Size;
 
 // extends Target nu tijdelijk weg gehaald
 public class Meteorite {
