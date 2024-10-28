@@ -12,6 +12,7 @@ import org.spacex.entities.bullet.HeroBullet;
 import org.spacex.entities.enemy.BossShip;
 import org.spacex.entities.misc.Explosion;
 import org.spacex.entities.enemy.Target;
+import org.spacex.entities.misc.Meteorite;
 import org.spacex.entities.player.PlayerShip;
 import org.spacex.ui.UIManager;
 import org.spacex.ui.element.HealthBar;
@@ -74,6 +75,7 @@ public class GameScene extends DynamicScene implements ExplosionCreator, UpdateE
         return bossManager;
     }
 
+    // getter method for EnemySpawner
     public EnemySpawner getEnemySpawner() {
         return enemySpawner;
     }
@@ -90,11 +92,18 @@ public class GameScene extends DynamicScene implements ExplosionCreator, UpdateE
         addEntity(newBullet);
     }
 
-    // Method to add a hero bullet to the game
+    // Method to add a hero bullet to the game scene
     public void addHeroBullet(HeroBullet myBullet) {
         myBullet.setAnchorPoint(AnchorPoint.CENTER_LEFT);
         addEntity(myBullet);
     }
+
+    // Method to add a Meteorite to the game scene
+    protected void spawnMeteorite(Coordinate2D position) {
+        Meteorite meteorite = new Meteorite(position, this);
+        addEntity(meteorite);  // Add meteorite to the scene
+    }
+
 
     public void showGameOver() {
         uiManager.displayGameOverScreen();
