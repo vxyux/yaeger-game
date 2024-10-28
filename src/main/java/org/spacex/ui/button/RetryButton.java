@@ -13,7 +13,7 @@ public class RetryButton extends Button  {
     public RetryButton(Coordinate2D initialLocation, SpaceShooter spaceShooter, GameScene gameScene) {
         super(initialLocation, spaceShooter, "RETRY GAME", Color.RED);
         this.gameScene = gameScene;
-        setFill(Color.LIGHTBLUE);
+        setFill(Color.CYAN);
     }
 
     @Override
@@ -29,7 +29,7 @@ public class RetryButton extends Button  {
 
     @Override
     public void onMouseExited() {
-        setFill(Color.BLUE);
+        setFill(Color.CYAN);
         setCursor(Cursor.DEFAULT);
     }
 }

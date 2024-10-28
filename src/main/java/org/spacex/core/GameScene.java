@@ -6,13 +6,13 @@ import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.entities.YaegerEntity;
 import com.github.hanyaeger.api.scenes.DynamicScene;
 import com.github.hanyaeger.api.UpdateExposer;
-import org.spacex.core.SpaceShooter;
 import org.spacex.entities.bullet.EnemyBullet;
 import org.spacex.entities.bullet.HeroBullet;
 import org.spacex.entities.enemy.BossShip;
 import org.spacex.entities.misc.Explosion;
 import org.spacex.entities.enemy.Target;
 import org.spacex.entities.player.PlayerShip;
+import org.spacex.ui.ScoreText;
 import org.spacex.ui.UIManager;
 import org.spacex.ui.element.HealthBar;
 import org.spacex.utils.ExplosionCreator;
@@ -22,6 +22,7 @@ public class GameScene extends DynamicScene implements ExplosionCreator, UpdateE
     private EnemySpawner enemySpawner;
     private BossManager bossManager;
     private UIManager uiManager;
+    private ScoreText scoreText;
 
     public GameScene(SpaceShooter spaceShooter) {
         this.spaceShooter = spaceShooter;
@@ -43,6 +44,10 @@ public class GameScene extends DynamicScene implements ExplosionCreator, UpdateE
         PlayerShip player = new PlayerShip(new Coordinate2D(getWidth() / 2, getHeight() / 2), this);
         addEntity(player);
         enemySpawner.spawnInitialWave();
+
+        // minus 25 omdat de score dan wel zichtbaar is
+        scoreText = new ScoreText(new Coordinate2D(20, getHeight() - 50));
+        addEntity(scoreText);
     }
 
     @Override
@@ -79,9 +84,14 @@ public class GameScene extends DynamicScene implements ExplosionCreator, UpdateE
     }
 
     // Method to handle enemy death
-    public void onEnemyKilled() {
+    public void onEnemyKilled(int enemyScore) {
         enemySpawner.onEnemyKilled();
         bossManager.update();
+        scoreText.setScore(enemyScore);
+    }
+
+    public void onBossKilled(int bossScore) {
+        scoreText.setScore(bossScore);
     }
 
     // Method to add an enemy bullet to the game

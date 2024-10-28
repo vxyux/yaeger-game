@@ -31,6 +31,7 @@ public class BossManager {
         gameScene.getEnemySpawner().enemiesKilled = 0;
         gameScene.getEnemySpawner().setCurrentWave(gameScene.getEnemySpawner().getCurrentWave() + 1);
         gameScene.getEnemySpawner().spawnEnemyWave(gameScene.getEnemySpawner().getCurrentWave());
+        gameScene.onBossKilled(100);
     }
 
     public void spawnBoss() {
