@@ -15,7 +15,6 @@ import org.spacex.entities.bullet.EnemyBullet;
 import org.spacex.entities.bullet.HeroBullet;
 import org.spacex.ui.HealthBar;
 import org.spacex.ui.ScoreText;
-import org.spacex.ui.WaveText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +45,6 @@ public class GameScene extends DynamicScene implements ExplosionCreator, UpdateE
     private final double minDistance = 150;
 
     private ScoreText scoreText;
-    private WaveText waveText;
 
     public GameScene(SpaceShooter spaceShooter) {
         this.spaceShooter = spaceShooter;
@@ -72,9 +70,6 @@ public class GameScene extends DynamicScene implements ExplosionCreator, UpdateE
         addEntity(boss);
 
         ////////////////////////////// UI Element /////////////////////////////////
-
-        waveText = new WaveText(new Coordinate2D(20, getHeight() - 70));
-        addEntity(waveText);
 
         // minus 25 omdat de score dan wel zichtbaar is
         scoreText = new ScoreText(new Coordinate2D(20, getHeight() - 50));
@@ -185,7 +180,6 @@ public class GameScene extends DynamicScene implements ExplosionCreator, UpdateE
     }
     // Spawn the (next) Enemy Wave
     private void spawnEnemyWave(int waveNumber) {
-        waveText.setWave(currentWave);
         int enemyCount = waveNumber * 2;
         // for the allowed Enemies count, find suitable positions
         for (int i = 0; i < enemyCount; i++) {
