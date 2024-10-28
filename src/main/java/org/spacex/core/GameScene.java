@@ -13,7 +13,7 @@ import org.spacex.entities.misc.Explosion;
 import org.spacex.entities.enemy.Target;
 import org.spacex.entities.misc.Meteorite;
 import org.spacex.entities.player.PlayerShip;
-import org.spacex.ui.ScoreText;
+import org.spacex.ui.element.ScoreText;
 import org.spacex.ui.UIManager;
 import org.spacex.ui.element.HealthBar;
 import org.spacex.utils.ExplosionCreator;
