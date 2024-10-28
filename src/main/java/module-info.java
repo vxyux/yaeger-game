@@ -2,10 +2,13 @@ module spaceshooter {
     requires hanyaeger;
     requires com.google.guice;
 
-    exports org.spacex;
+//    exports org.spacex;
     
     opens backgrounds;
     opens audios;
     opens sprites;
     opens gifs;
+    exports org.spacex.core;
+    exports org.spacex.core.additional;
+    exports org.spacex.utils;
 }

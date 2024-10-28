@@ -1,12 +1,10 @@
-package org.spacex.components;
+package org.spacex.ui.button;
 import com.github.hanyaeger.api.Coordinate2D;
 import javafx.scene.Cursor;
 import javafx.scene.input.MouseButton;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import org.spacex.GameScene;
-import org.spacex.SpaceShooter;
+import org.spacex.core.GameScene;
+import org.spacex.core.SpaceShooter;
 
 
 public class RetryButton extends Button  {
