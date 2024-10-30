@@ -114,7 +114,6 @@ public class GameScene extends DynamicScene implements ExplosionCreator, UpdateE
         addEntity(meteorite);  // Add meteorite to the scene
     }
 
-
     public void showGameOver() {
         uiManager.displayGameOverScreen();
     }

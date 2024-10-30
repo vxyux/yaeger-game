@@ -177,7 +177,7 @@ public class PlayerShip extends DynamicSpriteEntity implements KeyListener, Scen
             // calculate how much time has passed
             long elapsedTime = currentTime - flickerStartTime;
             if (elapsedTime >= FLICKER_DURATION) {
-                // sets boolean too false to start flickering
+                // sets boolean too false to stop flickering
                 isHit = false;
             } else {
                 // renders the opacity of the ship using the remainder operator

@@ -33,6 +33,9 @@ public class EnemySpawner {
         spawnEnemyWave(getCurrentWave());
     }
 
+    /*
+        Terwijl de enemy wachtrij leeg is en de hoeveelheid enemies niet een maximum overschrijft, dan spawn
+     */
     public void checkSpawnQueue() {
         while (!enemySpawnQueue.isEmpty() && activeEnemyCount < MAX_ENEMIES_ON_SCREEN) {
             spawnEnemy(enemySpawnQueue.poll());
@@ -42,9 +45,9 @@ public class EnemySpawner {
     public void onEnemyKilled() {
         enemiesKilled++;
         activeEnemyCount--;
-        // if the Boss is not active, and the Boss is not gonna spawn yet, and 'enemiesKilled' is lower than currentWave * 2;
+        // als de Boss niet actief is, en de Boss nog niet gaat spawnen, en 'enemiesKilled' lager is dan currentWave * 2;
         if (!gameScene.getBossManager().bossActive && !gameScene.getBossManager().bossReadyToSpawn && enemiesKilled >= getCurrentWave() * 2) {
-            if (getCurrentWave() % 10 == 0) { // checks if the wave is in factor 10
+            if (getCurrentWave() % 5 == 0) { // checks if the wave is in factor 10
                 if (activeEnemyCount == 0) {
                     System.out.println("IM GOING TO SPAWN THE BOSS, MUHAHAHA!!!");
                     gameScene.getBossManager().bossReadyToSpawn = true;  // Ready to spawn boss when field is clear
@@ -62,6 +65,7 @@ public class EnemySpawner {
         }
     }
 
+    // Genereer alle mogelijke plekken waar vijanden kunnen spawnen
     public void generatePossiblePositions() {
         PositionManager.generatePossiblePositions(availablePositions, usedPositions, gameScene.getWidth(), minDistance);
     }
