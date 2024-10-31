@@ -33,6 +33,10 @@ public class EnemyShip extends Target implements Collider, UpdateExposer {
         }
     }
 
+    /*
+    Zorgt voor het autonoom schieten van de EnemyBullet door de
+    EnemyShip entiteiten.
+    */
     private void fireBullet(){
         long currentTime = System.currentTimeMillis();
 
@@ -53,6 +57,7 @@ public class EnemyShip extends Target implements Collider, UpdateExposer {
         }
     }
 
+    // Zorgt voor een explosie op de plek van de EnemyShip
     public void explode() {
         gameScene.createExplosion(getLocationInScene(), getSpeed(), new Size(150, 150));
         gameScene.onEnemyKilled(10);

@@ -16,6 +16,7 @@ public class ScoreText extends DynamicTextEntity {
         setFont(Font.font("Monospaced", FontWeight.BOLD, 25));
     }
 
+    // Zet de score
     public void setScore(int score) {
         playerScore += score;
         setText("Score: " + playerScore);

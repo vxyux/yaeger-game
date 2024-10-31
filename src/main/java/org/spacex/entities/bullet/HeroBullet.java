@@ -32,6 +32,7 @@ public class HeroBullet extends DynamicSpriteEntity implements Bullet, SceneBord
         explode();
     }
 
+    // Als de HeroBullet een Bossship raakt, blaast de HeroBullet zichzelf op
     @Override
     public void onCollision(List<Collider> list) {
         // user feedback zodat de speler weet dat de kogel de baas heeft geraakt
@@ -41,7 +42,7 @@ public class HeroBullet extends DynamicSpriteEntity implements Bullet, SceneBord
             }
         }
     }
-
+    // Deze code zorgt voor een explosie op de plek van aanraking met een andere Entiteit.
     public void explode() {
         gameScene.createExplosion(getLocationInScene(), 0, new Size(60, 60));
     }

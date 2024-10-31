@@ -18,7 +18,8 @@ public class BackAndForthMovement implements MovementPattern {
 
     Calculeert de volgende positie op basis van de movingRight.
     Als movingright true is == beweegt Boss naar rechts.
-    if (position >= sceneWidth) == raakt de 'rand' aan, en gaat bewegen naar links als gevolg.
+    if (position >= sceneWidth) == raakt de 'rand' aan,
+    en gaat bewegen naar links als gevolg.
     vice versa.
      */
     @Override

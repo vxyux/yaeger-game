@@ -22,9 +22,11 @@ public abstract class Target extends DynamicSpriteEntity implements SceneBorderT
         this.health = hp;
     }
 
+    // Checkt of het een rand van de speelscherm raakt/
     @Override
     public void notifyBoundaryTouching(SceneBorder sceneBorder) {}
 
+    // Checkt of er een collisie is met een HeroBullet
     public void onCollision(List<Collider> list) {
         // checks all the collisions that are made
         for (Collider collider : list) {
@@ -36,6 +38,7 @@ public abstract class Target extends DynamicSpriteEntity implements SceneBorderT
         }
     }
 
+    // Calculleert de HP percentage en checkt of het 0 is
     public void calculateHealth() {
         health--;
         if(health == 0) {
@@ -46,6 +49,10 @@ public abstract class Target extends DynamicSpriteEntity implements SceneBorderT
         }
     }
 
+    /*
+    Zorgt voor een random spawncooldown,
+    zodat er niet gelijk met andere entiteiten wordt geschoten
+    */
     public int getRandomSpawnCooldown() {
         // nieuwe random getal voor de spawn cooldown zodat het niet gelijk schiet
         int max = 4000, min = 1000;
@@ -53,6 +60,7 @@ public abstract class Target extends DynamicSpriteEntity implements SceneBorderT
         return rand.nextInt((max - min) + 1) + min;
     }
 
+    // Zorgt voor een explosie
     public abstract void explode();
 }
 

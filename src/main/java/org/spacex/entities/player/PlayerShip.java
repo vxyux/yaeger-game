@@ -33,13 +33,17 @@ public class PlayerShip extends DynamicSpriteEntity implements KeyListener, Scen
     private boolean isHit = false;
     long flickerStartTime = 0;
 
-
+    // Constructor van Playershio
     public PlayerShip(Coordinate2D location, GameScene gameScene) {
         super("gifs/player.gif", location, new Size(70, 70));
         this.gameScene = gameScene;
         gameScene.addHealthBar(healthBar);
     }
 
+    /*
+    Checkt of er een rand van de speelscherm wordt geraakt,
+    en zo wel voert dit stukje code uit
+    */
     @Override
     public void notifyBoundaryTouching(SceneBorder sceneBorder) {
         setSpeed(0);
@@ -60,6 +64,7 @@ public class PlayerShip extends DynamicSpriteEntity implements KeyListener, Scen
                 break;
         }
     }
+
 
     @Override
     public void onPressedKeysChange(Set<KeyCode> pressedKeys) {
@@ -163,6 +168,7 @@ public class PlayerShip extends DynamicSpriteEntity implements KeyListener, Scen
         }
     }
 
+    // zorgt voor een explosie
     public void explode() {
         gameScene.createExplosion(getLocationInScene(), 0, new Size(150, 150));
     }
