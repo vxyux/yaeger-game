@@ -31,7 +31,7 @@ public class SpaceShooter extends YaegerGame
 
     public void restartGame() {
         GameScene gameScene = new GameScene(this);
-        addScene(1, new GameScene(this));
+        addScene(1, gameScene);
         setActiveScene(1);
     }
 }

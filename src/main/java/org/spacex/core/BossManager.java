@@ -25,6 +25,7 @@ public class BossManager {
         }
     }
 
+    // Verandert variabelen afkomstig van getEnemySpawner en runt daar diverse methodes
     public void onBossKilled() {
         bossActive = false;
         bossReadyToSpawn = false;
@@ -41,6 +42,7 @@ public class BossManager {
         Random rand = new Random();
         int randomNumber = rand.nextInt(3);
 
+        // defineer een random sprite voor de krachtige vijand
         String bossSprite;
         if (randomNumber == 0) {
             bossSprite = "sprites/spacecraft-symmetry.png";

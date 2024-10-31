@@ -24,6 +24,7 @@ public class RandomizedMovement implements MovementPattern {
         this.direction = new Coordinate2D(speedX, speedY); // Beginrichting
     }
 
+    // Calculeert de volgende positie waar de BossShip naartoe moet
     @Override
     public Coordinate2D calculateNextPosition(Coordinate2D currentPosition) {
         long currentTime = System.currentTimeMillis();

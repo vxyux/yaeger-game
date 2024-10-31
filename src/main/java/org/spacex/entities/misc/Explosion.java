@@ -10,6 +10,7 @@ import org.spacex.utils.ExplosionTimer;
 public class Explosion extends DynamicSpriteEntity implements TimerContainer {
     private int frameIndex = 0;
 
+    // Constructor van Explosion
     public Explosion(Coordinate2D initialLocation, double speed, Size size) {
         super("sprites/explosion.png", initialLocation, size, 1, 17);
         setMotion(speed, 90d);
@@ -17,6 +18,8 @@ public class Explosion extends DynamicSpriteEntity implements TimerContainer {
         soundClip.setVolume(0.6);
         soundClip.play();
     }
+
+    // Update de animatie op basis van de geleden tijd
     public void updateFrame() {
         if (getCurrentFrameIndex() < getFrames() - 1) {
             frameIndex++;
@@ -25,6 +28,7 @@ public class Explosion extends DynamicSpriteEntity implements TimerContainer {
             remove();
         }
     }
+    // roept de timer op om te beginnen
     public void setupTimers() {
         addTimer(new ExplosionTimer(this));
     }

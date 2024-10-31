@@ -13,6 +13,7 @@ public class EnemyBullet extends DynamicSpriteEntity implements Bullet, SceneBor
     private double speed;
     private GameScene gameScene;
 
+    // Constructor van de EnemyBullet
     public EnemyBullet(String resource, Coordinate2D initialLocation, GameScene gameScene,double speed, double direction) {
         super(resource, initialLocation, new Size(100, 100));
         this.gameScene = gameScene;
@@ -21,6 +22,7 @@ public class EnemyBullet extends DynamicSpriteEntity implements Bullet, SceneBor
         setMotion(speed, direction);
     }
 
+    // Als de EnemyBullet een rand van het speelscherm raakt, wordt deze code uitgevoerd
     @Override
     public void notifyBoundaryTouching(SceneBorder sceneBorder) {
         remove();
@@ -28,6 +30,7 @@ public class EnemyBullet extends DynamicSpriteEntity implements Bullet, SceneBor
         //explode();
     }
 
+    // Dit zorgt voor de explosie, wanneer de EnemyBullet iets zou raken // (is momenteel niet zo..)
     public void explode() {
         gameScene.createExplosion(getLocationInScene(), getSpeed(), new Size(60, 60));
     }

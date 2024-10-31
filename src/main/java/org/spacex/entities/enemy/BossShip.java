@@ -9,20 +9,19 @@ import org.spacex.core.BossManager;
 import org.spacex.core.GameScene;
 import org.spacex.targetmovement.MovementPattern;
 import org.spacex.entities.bullet.EnemyBullet;
-//import org.spacex.
+
 
 public class BossShip extends Target implements UpdateExposer, Collider, Collided {
     private final GameScene gameScene;
     private final MovementPattern pattern;
-//    private Bullet[] shootingType;
+//    private Bullet[] shootingType; // could have
 
     private static final int bossShipHealth = 5;
     private long lastBulletFiredTime = 0;
     private static final int BULLET_COOLDOWN = 500;
     private final long lastSpawnedTime;
 
-    // is wel handig om de scene te hebben ;)
-
+    // Constructor van de Bossship
     public BossShip(Coordinate2D location, String sprite, MovementPattern movementPattern, GameScene gameScene) {
         super(sprite, location, new Size(200, 200), bossShipHealth);
         this.pattern = movementPattern;
@@ -31,7 +30,10 @@ public class BossShip extends Target implements UpdateExposer, Collider, Collide
         //this.shootingType = shootingType; // could have
     }
 
-    // Explicitly override Update func from yaeger to 'force' our own update.
+    /*
+    Het expliciet overschrijven van Yaeger's update functie,
+    om onze eigen additie tot de update functie te forceren.
+    */
     @Override
     public void explicitUpdate(long l) {
         // Berekent de volgende plek waar de Boss moet komen.
@@ -45,7 +47,10 @@ public class BossShip extends Target implements UpdateExposer, Collider, Collide
             fireBullet();
         }
     }
+
+    // Handeling voor het schieten van een HeroBullet door de speler.
     private void fireBullet(){
+        // currentTimeMills == huidige tijd in milliseconden.
         long currentTime = System.currentTimeMillis();
 
         double centerX = this.getAnchorLocation().getX() + this.getWidth() / 2;
@@ -63,6 +68,7 @@ public class BossShip extends Target implements UpdateExposer, Collider, Collide
         }
     }
 
+    // Zorgt voor een explosie op de plek van de Boss
     public void explode() {
         gameScene.createExplosion(getLocationInScene(), getSpeed(), new Size(150, 150));
         gameScene.getBossManager().onBossKilled();

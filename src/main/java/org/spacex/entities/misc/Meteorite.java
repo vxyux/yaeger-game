@@ -12,6 +12,7 @@ public class Meteorite extends Target implements Collider {
     private final GameScene gameScene;
     private String sprite;
 
+        // Constructor van Meteorite
         public Meteorite(Coordinate2D location, GameScene gameScene) {
             super("sprites/meteorite.png", location, new Size(90, 90), 1);
             this.gameScene = gameScene;
@@ -19,11 +20,15 @@ public class Meteorite extends Target implements Collider {
 
             setMotion(3, 0d);
         }
-
+            // Zorgt voor een explosie
             public void explode () {
                 gameScene.createExplosion(getLocationInScene(), 0, new Size(150, 150));
             }
 
+            /*
+            Checkt of er een rand van de speelscherm wordt geraakt,
+            en zo wel voert dit stukje code uit
+            */
             @Override
             public void notifyBoundaryTouching (SceneBorder sceneBorder)
             {

@@ -6,6 +6,7 @@ import java.util.Random;
 
 public class PositionManager {
 
+    // Zoek en maak een lijst aan met toegankelijke en passende posities
     public static void generatePossiblePositions(List<Coordinate2D> availablePositions, List<Coordinate2D> usedPositions, double width, double minDistance) {
         double minX = 50;
         double maxX = width - 100;
@@ -19,6 +20,7 @@ public class PositionManager {
         }
     }
 
+    // Zoekt voor een ongebruikte positie
     public static Coordinate2D getValidPosition(List<Coordinate2D> availablePositions, List<Coordinate2D> usedPositions, Random random) {
         if (availablePositions.isEmpty()) {
             resetPositions(availablePositions, usedPositions);
@@ -29,6 +31,7 @@ public class PositionManager {
         return chosenPosition;
     }
 
+    // reset de lijst met gebruikte posities
     private static void resetPositions(List<Coordinate2D> availablePositions, List<Coordinate2D> usedPositions) {
         availablePositions.addAll(usedPositions);
         usedPositions.clear();
