@@ -33,7 +33,7 @@ public class PlayerShip extends DynamicSpriteEntity implements KeyListener, Scen
     private boolean isHit = false;
     long flickerStartTime = 0;
 
-    // Constructor van Playershio
+    // Constructor van Playership
     public PlayerShip(Coordinate2D location, GameScene gameScene) {
         super("gifs/player.gif", location, new Size(70, 70));
         this.gameScene = gameScene;
@@ -87,7 +87,7 @@ public class PlayerShip extends DynamicSpriteEntity implements KeyListener, Scen
             setMotion(3, 0d);
         }
 
-        // prevent player from shooting when flickering/hit
+        // voorkomt dat de speler kan schieten wanneer het is geraakt
         if (spacePressed && healthPoints != 0 && !isHit) {
             fireBullet();
         }
@@ -148,7 +148,6 @@ public class PlayerShip extends DynamicSpriteEntity implements KeyListener, Scen
 
             for (Collider collider : colliders) {
                 if (collider instanceof Meteorite) {
-                    // Remove the bullet
                     ((Meteorite) collider).remove();
                     healthPoints = 0;
                 }
@@ -175,18 +174,18 @@ public class PlayerShip extends DynamicSpriteEntity implements KeyListener, Scen
 
     @Override
     public void explicitUpdate(long l) {
-        // define flicker duration that -200 to end the earlier than the collision cooldown
+        // defineert knipper duratie dat 200 milisecondes eerder eindigt dan de cooldown
         long FLICKER_DURATION = collisionCooldown - 200;
         long FLICKER_INTERVAL = 100;
         long currentTime = System.currentTimeMillis();
         if (isHit) {
-            // calculate how much time has passed
+            // berekent hoeveel tijd er is gepasseerd
             long elapsedTime = currentTime - flickerStartTime;
             if (elapsedTime >= FLICKER_DURATION) {
-                // sets boolean too false to stop flickering
+                // verandert boolean naar vals zodat het stopt met knipperen
                 isHit = false;
             } else {
-                // renders the opacity of the ship using the remainder operator
+                // verandert de zichtbaarheid van het schip afhankelijk van remainder 2
                 boolean isVisible = (elapsedTime / FLICKER_INTERVAL) % 2 == 0;
                 if (isVisible) {
                     setOpacity(0);
