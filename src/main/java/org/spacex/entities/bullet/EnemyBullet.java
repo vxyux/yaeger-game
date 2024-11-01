@@ -25,13 +25,12 @@ public class EnemyBullet extends DynamicSpriteEntity implements Bullet, SceneBor
     // Als de EnemyBullet een rand van het speelscherm raakt, wordt deze code uitgevoerd
     @Override
     public void notifyBoundaryTouching(SceneBorder sceneBorder) {
+        explode();
         remove();
-        //setSpeed(0);
-        //explode();
     }
 
-    // Dit zorgt voor de explosie, wanneer de EnemyBullet iets zou raken // (is momenteel niet zo..)
+    // Dit zorgt voor de explosie, wanneer de EnemyBullet iets zou raken
     public void explode() {
-        gameScene.createExplosion(getLocationInScene(), getSpeed(), new Size(60, 60));
+        gameScene.createExplosion(getLocationInScene(), 0, new Size(60, 60));
     }
 }

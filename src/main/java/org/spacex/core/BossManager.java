@@ -2,6 +2,7 @@ package org.spacex.core;
 
 import com.github.hanyaeger.api.Coordinate2D;
 import org.spacex.entities.enemy.BossShip;
+import org.spacex.entities.enemy.Target;
 import org.spacex.targetmovement.BackAndForthMovement;
 import java.util.Random;
 
@@ -52,7 +53,7 @@ public class BossManager {
             bossSprite = "sprites/dragonboss_ship.png";
         }
 
-        BossShip boss = new BossShip(new Coordinate2D(gameScene.getWidth() / 2, 50), bossSprite, new BackAndForthMovement(4, 1000), gameScene);
-        gameScene.addBoss(boss);
+        Target boss = new BossShip(new Coordinate2D(gameScene.getWidth() / 2, 50), bossSprite, new BackAndForthMovement(4, 1000), gameScene);
+        gameScene.addEnemy(boss);
     }
 }

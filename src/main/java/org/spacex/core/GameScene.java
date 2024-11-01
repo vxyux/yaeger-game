@@ -19,10 +19,10 @@ import org.spacex.ui.element.HealthBar;
 import org.spacex.utils.ExplosionCreator;
 
 public class GameScene extends DynamicScene implements ExplosionCreator, UpdateExposer {
-    private SpaceShooter spaceShooter;
-    private EnemySpawner enemySpawner;
-    private BossManager bossManager;
-    private UIManager uiManager;
+    private final SpaceShooter spaceShooter;
+    private final EnemySpawner enemySpawner;
+    private final BossManager bossManager;
+    private final UIManager uiManager;
     private ScoreText scoreText;
 
     public GameScene(SpaceShooter spaceShooter) {
@@ -44,9 +44,10 @@ public class GameScene extends DynamicScene implements ExplosionCreator, UpdateE
     public void setupEntities() {
         PlayerShip player = new PlayerShip(new Coordinate2D(getWidth() / 2, getHeight() / 2), this);
         addEntity(player);
+
         enemySpawner.spawnInitialWave();
 
-        // minus 25 omdat de score dan wel zichtbaar is
+        // minus 50 omdat de score dan wel zichtbaar is
         scoreText = new ScoreText(new Coordinate2D(20, getHeight() - 50));
         addEntity(scoreText);
     }
@@ -65,27 +66,22 @@ public class GameScene extends DynamicScene implements ExplosionCreator, UpdateE
         addEntity(healthBar);
     }
 
-    // Method to add a generic enemy to the game
+    // Methode dat een vijand toevoegt in de game
     public void addEnemy(Target enemy) {
         addEntity(enemy);
     }
 
-    // Add Boss to the Scene
-    public void addBoss(BossShip boss) {
-        addEntity(boss);
-    }
-
-    // New getter method for BossManager
+    // nieuwe getter methode voor BossManager
     public BossManager getBossManager() {
         return bossManager;
     }
 
-    // getter method for EnemySpawner
+    // Getter methode voor EnemySpawner
     public EnemySpawner getEnemySpawner() {
         return enemySpawner;
     }
 
-    // Method to handle enemy death
+    // Methode om verwoeste vijanden te hanteren
     public void onEnemyKilled(int enemyScore) {
         enemySpawner.onEnemyKilled();
         bossManager.update();
@@ -96,19 +92,19 @@ public class GameScene extends DynamicScene implements ExplosionCreator, UpdateE
         scoreText.setScore(bossScore);
     }
 
-    // Method to add an enemy bullet to the game
+    // Methode om een nieuwe vijandige kogel in te laden
     public void addEnemyBullet(EnemyBullet newBullet) {
         newBullet.setAnchorPoint(AnchorPoint.CENTER_LEFT);
         addEntity(newBullet);
     }
 
-    // Method to add a hero bullet to the game scene
+    // Methode om een nieuwe vriendelijke kogel in te laden
     public void addHeroBullet(HeroBullet myBullet) {
         myBullet.setAnchorPoint(AnchorPoint.CENTER_LEFT);
         addEntity(myBullet);
     }
 
-    // Method to add a Meteorite to the game scene
+    // Methode om een nieuwe meteoriet in te laden
     protected void spawnMeteorite(Coordinate2D position) {
         Meteorite meteorite = new Meteorite(position, this);
         addEntity(meteorite);  // Add meteorite to the scene

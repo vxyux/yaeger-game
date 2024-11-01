@@ -23,7 +23,6 @@ public class EnemyShip extends Target implements Collider, UpdateExposer {
         this.lastSpawnedTime = System.currentTimeMillis();
     }
 
-    // Explicitly override Update func from yaeger to 'force' our own update.
     @Override
     public void explicitUpdate(long l) {
         int SPAWN_COOLDOWN = getRandomSpawnCooldown();

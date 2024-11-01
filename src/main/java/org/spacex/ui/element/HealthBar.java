@@ -13,7 +13,7 @@ public class HealthBar extends DynamicRectangleEntity {
         this.maxHealth = maxHealth;
         this.currentHealth = maxHealth;
 
-        // defineert de style van de HealthBar
+        // defineert style van de HealthBar
         setWidth(getSceneWidth());
         setHeight(10);
         setFill(Color.GREEN);
