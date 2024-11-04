@@ -122,7 +122,7 @@ public class GameScene extends DynamicScene implements ExplosionCreator, UpdateE
         spaceShooter.restartGame();
     }
 
-    public void addnewEntity(YaegerEntity entity){
+    public void addNewEntity(YaegerEntity entity){
         addEntity(entity);
     }
 }
